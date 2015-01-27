@@ -1,0 +1,61 @@
+latitude,longitude,name,pueblo,beach link,hazard level
+18.387800,-67.214660,Pico de Piedra,Aguada,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_pkpdra.png,medium
+18.414660,-67.163280,Parque Colon,Aguadilla,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_pcolon.png,medium
+18.458710,-67.166200,Crashboat,Aguadilla,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_crash.png,medium
+18.432050,-67.157280,Aguadilla Breakwater,Aguadilla,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_rompe.png,medium
+18.507360,-67.141380,Surfers Beach,Aguadilla,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_surfrs.png,high
+18.478930,-66.706320,Muelle Arecibo,Arecibo,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_mueare.png,high
+18.484210,-66.695110,Poza del Obispo,Arecibo,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_obisp.png,high
+17.957030,-66.033970,Balneario Arroyo,Arroyo,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_balarr.png,medium
+17.950370,-66.041980,Villa Fomento,Arroyo,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_vfomen.png,medium
+17.970000,-67.216700,Combate,Cabo_Rojo,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_comb.png,medium
+17.987800,-67.216700,Mojacasabe,Cabo_Rojo,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_moja.png,medium
+18.012200,-67.176700,Balneario Boqueron,Cabo_Rojo,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_balbq.png,medium
+18.051130,-67.208920,Playa Buye,Cabo_Rojo,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_buye.png,medium
+18.065380,-67.206240,Villa Lamela,Cabo_Rojo,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_lamela.png,medium
+17.928640,-67.188470,Playa Sucia,Cabo_Rojo,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_psuc.png,medium
+18.493760,-66.852970,Penon Brusi,Camuy,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_penbru.png,high
+18.457800,-66.133300,La Esperanza,Catano,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_ctno.png,medium
+18.337490,-65.315940,Playa Flamenco,Culebra,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_flamnc.png,high
+18.481000,-66.286150,Balneario Dorado,Dorado,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_baldor.png,high
+18.372090,-65.636020,Seven Seas,Fajardo,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_sevsea.png,medium
+18.363880,-65.669258,Playa Escondida,Fajardo,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_esco.png,medium
+17.949380,-66.882300,Cana Gorda,Guanica,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_cgor.png,medium
+17.935820,-66.959510,Playa Santa,Guanica,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_psan.png,medium
+17.952370,-66.856180,Playa Ballena,Guanica,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_ball.png,medium
+18.140000,-65.740000,Balneario Humacao,Humacao,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_balhum.png,medium
+18.081963,-65.787744,Palmas del Mar,Humacao,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_palmas.png,medium
+18.517110,-67.077100,Playa Jobos,Isabela,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_jobos.png,high
+17.968980,-67.030660,Playita Rosada,Lajas,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_pros.png,medium
+18.447407,-65.915614,Vacia Talega 1,Loiza,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_vata1.png,medium
+18.449193,-65.907849,Vacia Talega 2,Loiza,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_vata2.png,medium
+18.458081,-65.975047,Pinones,Loiza,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_pino.png,high
+18.388210,-65.736640,Balneario Luquillo,Luquillo,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_balluq.png,medium
+18.383410,-65.718540,Costa Azul,Luquillo,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_cazul.png,high
+18.378100,-65.712750,La Pared,Luquillo,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_lpared.png,high
+18.479650,-66.452910,Los Tubos,Manati,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_tubos.png,high
+18.481000,-66.484960,Mar Chiquita,Manati,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_marchi.png,high
+17.970760,-65.994420,Los Bajos,Patillas,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_bajos.png,medium
+17.965610,-66.603040,Punta Cabullones,Ponce,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_ptacb.png,medium
+18.490860,-66.956760,Tunel Guajataca,Quebradillas,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_guaja.png,high
+18.340960,-67.257850,Balneario de Rincon,Rincon,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_balrin.png,medium
+18.365800,-67.272320,Domes Beach,Rincon,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_domes.png,medium
+18.417164,-65.810848,St Regis,Rio_Grande,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_regis.png,high
+18.468378,-66.092728,El Escambron,San_Juan,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_esca.png,high
+18.459722,-66.073431,La Concha,San_Juan,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_conch.png,high
+18.456588,-66.062231,Condado,San_Juan,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_cdado.png,high
+18.454266,-66.049921,Ocean Park,San_Juan,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_ocprk.png,medium
+18.448333,-66.031765,Isla Verde 1,San_Juan,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_isvd1.png,high
+18.445893,-66.024120,Isla Verde 2,San_Juan,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_isvd2.png,medium
+18.446095,-66.010208,Pine Grove,San_Juan,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_pgrve.png,medium
+18.450554,-65.998893,Balneario Carolina,San_Juan,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_blcro.png,medium
+17.770000,-64.560000,Cramer Park,St_Croix,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_cram.png,high
+18.355639,-64.772143,Trunk Bay,St_John,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_trunk.png,medium
+18.367023,-64.932131,Magens Bay,St_Thomas,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_magen.png,medium
+18.470050,-66.189680,Punta Salinas,Toa_Baja,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_ptsal.png,medium
+18.453748,-66.170528,Levittown,Toa_Baja,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_levit.png,medium
+18.482360,-66.341120,Cerro Gordo,Vega_Alta,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_cgordo.png,medium
+18.496480,-66.402320,Puerto Nuevo,Vega_Baja,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_ptonue.png,high
+18.087885,-65.461124,Sun Bay,Vieques,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_sunbay.png,medium
+18.060000,-65.820000,Guayanes,Yabucoa,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_gynes.png,medium
+18.042650,-65.828790,Playa Lucia,Yabucoa,http://caricoos.org/swan_multigrid_swanwrf/beach_safety/beach_safety_bulletin_plucia.png,medium
