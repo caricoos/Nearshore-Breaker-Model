@@ -1,16 +1,23 @@
 <!DOCTYPE html>
-<html lang="en" ng-app='entradaApp'>
+
+<!--
+
+Falta:
+- Plotiar mapa
+- Dates dinamicos
+- Sorting Data
+- Breaking H y Condition Logic
+- Fetchar Data directamente de csv
+
+-->
+
+
+<html lang="en" ng-app='beachHazardApp'>
     <head>
         <meta charset="UTF-8">
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-        <link href="resources/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-        <link href="resources/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-        <link href="resources/css/ionicons.min.css" rel="stylesheet" type="text/css" />
-        <link href="resources/css/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
-        <link href="resources/css/AdminLTE.css" rel="stylesheet" type="text/css" />
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.10/angular.min.js"></script>
-        <script src="resources/js/entradaModule.js"></script>
-
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> 
+        <link href="http://netdna.bootstrapcdn.com/font-awesome/2.0/css/font-awesome.css" rel="stylesheet">
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -42,56 +49,65 @@
                 <li><a data-toggle="tab" href="#sectionB">Saturday, January 24</a></li>
             </ul>
 
-            <div class="tab-content">
+            <div class="tab-content" ng-controller="beachHazardController as beachHazard">
 
                 <div id="sectionA" class="tab-pane fade in active">
-                    <h3>Friday, January 23</h3>
-                    <aside>                  
+            
+                    <aside>         
                         <section class="content">
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <div class="box">
-                                        <div class="box-body table-responsive">
-                                            <table id="myTable" class="table table-bordered table-hover" ng-controller="entradaController as entrada">
-                                               
-                                                <thead>
-                                                    <tr>
-                                                        <th>Town</th>
-                                                        <th>Beach Name</th>
-                                                        <th>Beach Bathymetry</th>
-                                                        <th>Breaker Prediction</th>
-                                                        <th>Breaker Height</th>
-                                                        <th>Condition</th>
-                                                    </tr>
-                                                </thead>
+                            <table class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr ng-class="'headerTable'">
+                                            <th>Town &nbsp; <a ng-click=""><i class="icon-sort"></i></a></th>
+                                            <th>Beach Name  &nbsp; <a ng-click=""><i class="icon-sort"></i></a></th>
+                                            <th>Beach Bathymetry</th>
+                                            <th>Breaker Prediction</th>
+                                            <th>Breaker Height  &nbsp; <a ng-click=""><i class="icon-sort"></i></a></th>
+                                            <th>Condition</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody 
+                                    ng-repeat="item in beaches | startFrom: pagination.page * pagination.perPage | limitTo: pagination.perPage | filter:searchItem">
+                                        <tr>
+                                            <td>{{item.pueblo | removeSpaces}}</th>
+                                            <td>{{item.name}}</th>
+                                            <td><a href="" ng-click="generatePupUP(item['beach link'], 'bathy')">Click Here</a></th>
+                                            <td><a href="" ng-click="generatePupUP(item['beach link'], 'bulletin')">Click Here</a></th>
+                                            <td>Breaker Height</th>
+                                            <td>Condition</th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                
+                                <div style="margin: 5px;" class="btn-group pull-left">
+                                    <button type="button" class="btn btn-default dropdown-toggle" 
+                                    data-toggle="dropdown" aria-expanded="false">
+                                        Per Page <span class="caret"></span>
+                                    </button>
 
-                                                <tbody ng-repeat="item in scan">
-                                                    <tr>
-                                                        <th></th>
-                                                        <th>Name</th>
-                                                        <th>Beach Bathymetry</th>
-                                                        <th>Breaker Prediction</th>
-                                                        <th>Breaker Height</th>
-                                                        <th>Condition</th>
-                                                    </tr>
-                                                </tbody>
-    
-                                                <tfoot>
-                                                    <tr>
-                                                        <th>Town</th>
-                                                        <th>Beach Name</th>
-                                                        <th>Beach Bathymetry</th>
-                                                        <th>Breaker Prediction</th>
-                                                        <th>Breaker Height</th>
-                                                        <th>Condition</th>
-                                                    </tr>
-                                                </tfoot>
-
-                                            </table>
-                                        </div>
-                                    </div>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li ng-click="changeNumberOfPages(10)" ><a href="">10</a></li>
+                                        <li ng-click="changeNumberOfPages(20)"><a href="">20</a></li>
+                                        <li ng-click="changeNumberOfPages(30)"><a href="">30</a></li>
+                                        <li ng-click="changeNumberOfPages(40)"><a href="">40</a></li>
+                                        <li ng-click="changeNumberOfPages(50)"><a href="">50</a></li>
+                                    </ul>
                                 </div>
-                            </div>
+                                
+                                <div style="margin: 5px;" class="pull-left">
+                                    <ul style="margin: 0px;" class="pagination">
+                                        <li>
+                                            <a href="" ng-click="pagination.prevPage()">&laquo;</a>
+                                        </li>
+                                        <li ng-repeat="n in [] | range: pagination.numPages" ng-class="{active: n == pagination.page}">
+                                            <a href="" ng-click="pagination.toPageId(n)">{{n + 1}}</a>
+                                        </li>
+                                        <li>
+                                            <a href="" ng-click="pagination.nextPage()">&raquo;</a>
+                                        </li>
+                                    </ul>
+                                </div>
+
                         </section>
                     </aside>
                 </div>
@@ -100,66 +116,84 @@
                     <h3>Friday, January 23</h3>
                     <aside>                  
                         <section class="content">
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <div class="box">
-                                        <div class="box-body table-responsive">
-                                            <table id="myTable" class="table table-bordered table-hover">
-                                               
-                                                <thead>
-                                                    <tr>
-                                                        <th>Town</th>
-                                                        <th>Beach Name</th>
-                                                        <th>Beach Bathymetry</th>
-                                                        <th>Breaker Prediction</th>
-                                                        <th>Breaker Height</th>
-                                                        <th>Condition</th>
-                                                    </tr>
-                                                </thead>
-
-                                                <tbody>
-                                                
-                                                </tbody>
-    
-                                                <tfoot>
-                                                    <tr>
-                                                        <th>Town</th>
-                                                        <th>Beach Name</th>
-                                                        <th>Beach Bathymetry</th>
-                                                        <th>Breaker Prediction</th>
-                                                        <th>Breaker Height</th>
-                                                        <th>Condition</th>
-                                                    </tr>
-                                                </tfoot>
-
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            
                         </section>
                     </aside>
                 </div>
             </div>
         </div>
 
+
+        <div id="myModal" class="modal fade">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 id="popUpTitle" class="modal-title">Modal title</h4>
+              </div>
+              <div class="modal-body">
+                <img  height="100%" width="100%" id="pupUpImg" src="" />
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
     <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyB2dhC19xC5PHj2E22R_w9--1QrF557JEs&sensor=false"></script>
-    <script src="resources/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="resources/js/plugins/datatables/jquery.dataTables.js" type="text/javascript"></script>
-    <script src="resources/js/plugins/datatables/dataTables.bootstrap.js" type="text/javascript"></script>
-    <!-- <script src="resources/js/csvConverter.js" type="text/javascript"></script> -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="simplePagination.js"></script> <!-- Add this module -->
     <script type="text/javascript">
-        $(function() {
-            $('#myTable').dataTable({
-                "bPaginate": true,
-                "bLengthChange": false,
-                "bFilter": false,
-                "bSort": true,
-                "bInfo": true,
-                "bAutoWidth": false
+
+        (function() {
+            var app = angular.module('beachHazardApp', ['simplePagination']);
+
+            app.controller('beachHazardController', ['$scope', '$http', 'Pagination', function($scope, $http, Pagination){
+            
+                $scope.pagination = Pagination.getNew();
+                $scope.beaches = [];
+
+                $http.get('data.json').
+                    success(function(data, status, headers, config) {
+                        $scope.beaches = data;
+                        $scope.pagination = Pagination.getNew(15);
+                        $scope.pagination.numPages = Math.ceil($scope.beaches.length/$scope.pagination.perPage);
+                    }).
+                    error(function(data, status, headers, config) {
+                        alert("Error loading the data.")
+                });
+
+                $scope.changeNumberOfPages = function(num){
+                   $scope.pagination = Pagination.getNew(num);
+                    $scope.pagination.numPages = Math.ceil($scope.beaches.length/$scope.pagination.perPage);
+                }
+
+                $scope.generatePupUP = function(link, type) {
+                    var newLink = link;
+                    document.getElementById("pupUpImg").src = newLink;
+                    document.getElementById("popUpTitle").innerHTML = "Breaker Prediction";
+                    if(type == 'bathy') {
+                        newLink = newLink.replace("bulletin", "bathy");
+                        document.getElementById("pupUpImg").src = newLink;
+                        document.getElementById("popUpTitle").innerHTML = "Beach Bathymetry";
+                    } 
+
+
+
+                    $('#myModal').modal('toggle')
+             
+                }
+                
+            }]);
+            
+            app.filter('removeSpaces', function() {
+              return function (text) {
+                  var str = text.replace('_', ' ');
+                  return str;
+                    };
             });
-        });
+        })();
+
 
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 9,
