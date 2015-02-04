@@ -39,17 +39,17 @@ Falta:
             <p>&nbsp;</p>
             <p><strong><em>Select a beach for detailed report</em></strong></p>
             <p style="text-align:center;">&nbsp;</p>
-            <p style="text-align:center;"><img src="http://www.caricoos.org/images/l.png" alt="" /> NONE to LOW (<span style="mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:Arial">&lt; 2 feet)</span> &nbsp;<img src="http://www.caricoos.org/images/m.png" alt="" /> LOW to MODERATE (between 2 and 4<span style="mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:Arial">&nbsp;feet)</span> &nbsp; <img src="http://www.caricoos.org/images/h.png" alt="" />MODERATE to HIGH (<span style="mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:Arial">between 4 and 6 feet)</span>&nbsp; <img src="http://www.caricoos.org/images/x.png" alt="" /> HIGH to VERY&nbsp;LARGE<span style="mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:Arial">(&gt; 6 feet)</span></p>
+            <p style="text-align:center;"><!--<img src="http://www.caricoos.org/images/l.png" alt="" /> NONE to LOW (<span style="mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:Arial">&lt; 2 feet)</span> &nbsp; --><img src="http://www.caricoos.org/images/m.png" alt="" /> LOW to MODERATE (between 2 and 4<span style="mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:Arial">&nbsp;feet)</span> &nbsp; <img src="http://www.caricoos.org/images/h.png" alt="" />MODERATE to HIGH (<span style="mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:Arial">between 4 and 6 feet)</span>&nbsp; <img src="http://www.caricoos.org/images/x.png" alt="" /> HIGH to VERY&nbsp;LARGE<span style="mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:Arial">(&gt; 6 feet)</span></p>
 
 
-            <div id="map" style="width: 98%; height: 470px; margin:20px;">&nbsp;</div>
+            <div id="map" style="width: 96%; height: 470px; margin:20px;">&nbsp;</div>
 
-            <ul class="nav nav-tabs">
+            <ul  style="width: 96%; margin-left:20px; margin-right:20px;"  class="nav nav-tabs">
                 <li class="active"><a data-toggle="tab" href="#sectionA">Friday, January 23</a></li>
                 <li><a data-toggle="tab" href="#sectionB">Saturday, January 24</a></li>
             </ul>
 
-            <div class="tab-content" ng-controller="beachHazardController as beachHazard">
+            <div style="width: 96%; margin-left:20px; margin-right:20px;" class="tab-content" ng-controller="beachHazardController as beachHazard">
 
                 <div id="sectionA" class="tab-pane fade in active">
             
@@ -62,8 +62,7 @@ Falta:
                                             <th>Beach Name  &nbsp; <a ng-click=""><i class="icon-sort"></i></a></th>
                                             <th>Beach Bathymetry</th>
                                             <th>Breaker Prediction</th>
-                                            <th>Breaker Height  &nbsp; <a ng-click=""><i class="icon-sort"></i></a></th>
-                                            <th>Condition</th>
+                                            <th>Breaker Height & Condition &nbsp; <a ng-click=""><i class="icon-sort"></i></a></th>
                                         </tr>
                                     </thead>
                                     <tbody 
@@ -73,8 +72,7 @@ Falta:
                                             <td>{{item.name}}</th>
                                             <td><a href="" ng-click="generatePupUP(item['beach link'], 'bathy')">Click Here</a></th>
                                             <td><a href="" ng-click="generatePupUP(item['beach link'], 'bulletin')">Click Here</a></th>
-                                            <td>Breaker Height</th>
-                                            <td>Condition</th>
+                                            <td><img ng-src="{{item['hazard level'] | generateIcon }}" />&nbsp;{{item["hazard level"] | changeWarning}}</th>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -91,6 +89,7 @@ Falta:
                                         <li ng-click="changeNumberOfPages(30)"><a href="">30</a></li>
                                         <li ng-click="changeNumberOfPages(40)"><a href="">40</a></li>
                                         <li ng-click="changeNumberOfPages(50)"><a href="">50</a></li>
+                                        <li ng-click="changeNumberOfPages(500)"><a href="">All</a></li>
                                     </ul>
                                 </div>
                                 
@@ -124,8 +123,8 @@ Falta:
         </div>
 
 
-        <div id="myModal" class="modal fade">
-          <div class="modal-dialog">
+        <div id="myModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg">
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -134,9 +133,9 @@ Falta:
               <div class="modal-body">
                 <img  height="100%" width="100%" id="pupUpImg" src="" />
               </div>
-            </div><!-- /.modal-content -->
-          </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
+            </div>
+          </div>
+        </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
@@ -192,6 +191,35 @@ Falta:
                   return str;
                     };
             });
+
+            app.filter('changeWarning', function() {
+              return function (text) {
+                    if(text == 'medium') {
+                        return "LOW to MODERATE";
+                    } else if(text == 'high') {
+                        return "MODERATE to HIGH";
+                    } else if(text == 'extreme') {
+                        return "HIGH to VERY LARGE"
+                    } else {
+                        return "NONE to LOW";
+                    }
+                };
+            });
+
+            app.filter('generateIcon', function() {
+              return function (text) {
+                    if(text == 'medium') {
+                        return "http://www.caricoos.org/images/m.png";
+                    } else if(text == 'high') {
+                        return "http://www.caricoos.org/images/h.png";
+                    } else if(text == 'extreme') {
+                        return "http://www.caricoos.org/images/x.png";
+                    } else {
+                        return "http://www.caricoos.org/images/l.png";
+                    }
+                };
+            });
+
         })();
 
 
