@@ -58,21 +58,24 @@ Falta:
                             <table class="table table-bordered table-hover">
                                     <thead>
                                         <tr ng-class="'headerTable'">
-                                            <th>Town &nbsp; <a ng-click=""><i class="icon-sort"></i></a></th>
-                                            <th>Beach Name  &nbsp; <a ng-click=""><i class="icon-sort"></i></a></th>
+                                            <th>Town &nbsp; <a href=""
+                                                ng-click="orderByField='pueblo'; reverseSort = !reverseSort"><i class="icon-sort"></i></a></th>
+                                            <th>Beach Name  &nbsp; <a href=""
+                                                ng-click="orderByField='name'; reverseSort = !reverseSort"><i class="icon-sort"></i></a></th>
                                             <th>Beach Bathymetry</th>
                                             <th>Breaker Prediction</th>
-                                            <th>Breaker Height & Condition &nbsp; <a ng-click=""><i class="icon-sort"></i></a></th>
+                                            <th>Breaker Height & Condition &nbsp; <a href=""
+                                                ng-click="orderByField='hazard_level'; reverseSort = !reverseSort"><i class="icon-sort"></i></a></th>
                                         </tr>
                                     </thead>
                                     <tbody 
-                                    ng-repeat="item in beaches | startFrom: pagination.page * pagination.perPage | limitTo: pagination.perPage | filter:searchItem">
+                                    ng-repeat="item in beaches | startFrom: pagination.page * pagination.perPage | limitTo: pagination.perPage | filter:searchItem | orderBy:orderByField:reverseSort">
                                         <tr>
                                             <td>{{item.pueblo | removeSpaces}}</th>
                                             <td>{{item.name}}</th>
-                                            <td><a href="" ng-click="generatePupUP(item['beach link'], 'bathy')">Click Here</a></th>
-                                            <td><a href="" ng-click="generatePupUP(item['beach link'], 'bulletin')">Click Here</a></th>
-                                            <td><img ng-src="{{item['hazard level'] | generateIcon }}" />&nbsp;{{item["hazard level"] | changeWarning}}</th>
+                                            <td><a href="" ng-click="generatePupUP(item['beach_link'], 'bathy')">Click Here</a></th>
+                                            <td><a href="" ng-click="generatePupUP(item['beach_link'], 'bulletin')">Click Here</a></th>
+                                            <td><img ng-src="{{item['hazard_level'] | generateIcon }}" />&nbsp;{{item["hazard_level"] | changeWarning}}</th>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -144,6 +147,22 @@ Falta:
     <script src="simplePagination.js"></script> <!-- Add this module -->
     <script type="text/javascript">
 
+            function csvToJson(csv){
+                    var lines=csv.split("\n");
+                    var result = [];
+                    var headers=lines[0].split(",");
+                    for(var i=1;i<lines.length;i++){
+                        var obj = {};
+                        var currentline=lines[i].split(",");
+                 
+                        for(var j=0;j<headers.length;j++){
+                            obj[headers[j]] = currentline[j];
+                        }
+                        result.push(obj);
+                  }
+                  return JSON.stringify(result); 
+                }
+
         (function() {
             var app = angular.module('beachHazardApp', ['simplePagination']);
 
@@ -152,8 +171,13 @@ Falta:
                 $scope.pagination = Pagination.getNew();
                 $scope.beaches = [];
 
-                $http.get('data.json').
+                $scope.orderByField = 'pueblo';
+                $scope.reverseSort = false;
+
+
+                $http.get('read.php?csv=today.csv').
                     success(function(data, status, headers, config) {
+                        console.log(data);
                         $scope.beaches = data;
                         $scope.pagination = Pagination.getNew(15);
                         $scope.pagination.numPages = Math.ceil($scope.beaches.length/$scope.pagination.perPage);
@@ -162,6 +186,7 @@ Falta:
                         alert("Error loading the data.")
                 });
 
+                
                 $scope.changeNumberOfPages = function(num){
                    $scope.pagination = Pagination.getNew(num);
                     $scope.pagination.numPages = Math.ceil($scope.beaches.length/$scope.pagination.perPage);
@@ -176,11 +201,7 @@ Falta:
                         document.getElementById("pupUpImg").src = newLink;
                         document.getElementById("popUpTitle").innerHTML = "Beach Bathymetry";
                     } 
-
-
-
                     $('#myModal').modal('toggle')
-             
                 }
                 
             }]);

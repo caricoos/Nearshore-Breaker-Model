@@ -1,23 +1,32 @@
 <?php
-$row = 1;
-$csv = $_GET['csv'];
-$response = "";
+    $csv = $_GET['csv'];
+    $file_path="http://www.caricoos.org/swan_multigrid/beach_safety/beach_hazards_warning_levels_".$csv;
 
-
-//This is the path of the CSV file.
-$file_path="http://www.caricoos.org/swan_multigrid/beach_safety/beach_hazards_warning_levels_".$csv;
-echo $file_path;
-if (($handle = fopen($file_path, "r")) !== FALSE) {
-    while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-        $num = count($data);
-        $response .= "|";
-        $row++;
-        for ($c=0; $c < $num; $c++) {
-            $response .= $data[$c] . ",";
+    function getJsonFromCsv($file,$delimiter) { 
+        if (($handle = fopen($file, 'r')) === false) {
+            die('Error opening file');
         }
+
+        $headers = fgetcsv($handle, 4000, $delimiter);
+
+
+        for($i = 0 ; $i < count($headers) ; $i++) {
+            $headers = str_replace(' ', '_', $headers);
+        }
+       
+        $csv2json = array();
+
+        while ($row = fgetcsv($handle, 4000, $delimiter)) {
+          $csv2json[] = array_combine($headers, $row);
+        }
+
+        fclose($handle);
+        return json_encode($csv2json); 
     }
-    echo $response;
-    fclose($handle);
-}
+
+    echo getJsonFromCsv($file_path, ",");
+
 ?>
+
+
 
