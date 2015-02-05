@@ -10,14 +10,16 @@
         $headers = fgetcsv($handle, 4000, $delimiter);
 
 
-        for($i = 0 ; $i < count($headers) ; $i++) {
-            $headers = str_replace(' ', '_', $headers);
-        }
+         $headers = str_replace(' ', '_', $headers);
+        
        
         $csv2json = array();
 
         while ($row = fgetcsv($handle, 4000, $delimiter)) {
-          $csv2json[] = array_combine($headers, $row);
+            for($i = 0 ; $i < count($row) ; $i++) {
+                $row[3] = str_replace('_', ' ', $row[3]);
+            }
+            $csv2json[] = array_combine($headers, $row);
         }
 
         fclose($handle);
