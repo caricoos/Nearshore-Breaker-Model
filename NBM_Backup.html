@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en" ng-app='beachHazardApp'>
+    <head>
+        <meta charset="UTF-8">
+        <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> 
+        <link href="http://netdna.bootstrapcdn.com/font-awesome/2.0/css/font-awesome.css" rel="stylesheet">
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+          <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+        <style>
+            table a:link {
+                color: #666;
+                font-weight: bold;
+                text-decoration:none;
+            }
+            table a:visited {
+                color: #999999;
+                font-weight:bold;
+                text-decoration:none;
+            }
+            table a:active,
+            table a:hover {
+                color: #bd5a35;
+                text-decoration:underline;
+            }
+            table {
+                font-family:Arial, Helvetica, sans-serif;
+                color:#666;
+                font-size:12px;
+                text-shadow: 1px 1px 0px #fff;
+                background:#eaebec;
+                border:#ccc 1px solid;
+
+                -moz-border-radius:3px;
+                -webkit-border-radius:3px;
+                border-radius:3px;
+
+                -moz-box-shadow: 0 1px 2px #d1d1d1;
+                -webkit-box-shadow: 0 1px 2px #d1d1d1;
+                box-shadow: 0 1px 2px #d1d1d1;
+            }
+            table th {
+                padding:21px 25px 22px 25px;
+                border-top:1px solid #fafafa;
+                border-bottom:1px solid #e0e0e0;
+
+                background: #ededed;
+                background: -webkit-gradient(linear, left top, left bottom, from(#ededed), to(#ebebeb));
+                background: -moz-linear-gradient(top,  #ededed,  #ebebeb);
+            }
+            table th:first-child {
+                text-align: left;
+                padding-left:20px;
+            }
+            table tr:first-child th:first-child {
+                -moz-border-radius-topleft:3px;
+                -webkit-border-top-left-radius:3px;
+                border-top-left-radius:3px;
+            }
+            table tr:first-child th:last-child {
+                -moz-border-radius-topright:3px;
+                -webkit-border-top-right-radius:3px;
+                border-top-right-radius:3px;
+            }
+            table tr {
+                text-align: center;
+                padding-left:20px;
+            }
+            table td:first-child {
+                text-align: left;
+                padding-left:20px;
+                border-left: 0;
+            }
+            table td {
+                padding:18px;
+                border-top: 1px solid #ffffff;
+                border-bottom:1px solid #e0e0e0;
+                border-left: 1px solid #e0e0e0;
+
+                background: #fafafa;
+                background: -webkit-gradient(linear, left top, left bottom, from(#fbfbfb), to(#fafafa));
+                background: -moz-linear-gradient(top,  #fbfbfb,  #fafafa);
+            }
+            table tr.even td {
+                background: #f6f6f6;
+                background: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#f6f6f6));
+                background: -moz-linear-gradient(top,  #f8f8f8,  #f6f6f6);
+            }
+            table tr:last-child td {
+                border-bottom:0;
+            }
+            table tr:last-child td:first-child {
+                -moz-border-radius-bottomleft:3px;
+                -webkit-border-bottom-left-radius:3px;
+                border-bottom-left-radius:3px;
+            }
+            table tr:last-child td:last-child {
+                -moz-border-radius-bottomright:3px;
+                -webkit-border-bottom-right-radius:3px;
+                border-bottom-right-radius:3px;
+            }
+            table tr:hover td {
+                background: #f2f2f2;
+                background: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#f0f0f0));
+                background: -moz-linear-gradient(top,  #f2f2f2,  #f0f0f0);  
+            }
+        </style>
+    </head>
+
+    <body ng-controller="beachHazardController as beachHazard">
+        <div class="table-container" style="margin: 20px;">
+
+
+            <!-- Introducction -->
+
+            <p>This preliminary experimental product  provides estimates of breaker heights (face value, crest to through) for  many of the most popular beaches in Puerto Rico. The estimated breaker  heights are based beach-specific predictions from the CariCOOS Nearshore  Wave Model (
+            <a href="http://caricoos.org/drupal/swan_multigrid">http://caricoos.org/drupal/swan_multigrid</a>) and adjustments to these predictions based on analytical and empirical  formulae. Three levels of estimated breaker conditions are presented in  the map below: low to moderate (maximum breaker heights &lt; 4 feet),  moderate to high (maximum breaker heights between 4 and 6 feet), and  high to very large (maximum breaker heights &gt; 6 feet). The estimates  of maximum breaker heights are conservative and can overestimate the  actual breaker heights, however, larger breaking waves than those  predicted could occur.
+
+            <p>This product is still in an experimental  stage and should not be used to make decisions at this moment. In  addition, the colored flags are only suggestive of breaker height  conditions and do not constitute an official beach hazards warning level  for these beaches. For official warning and advisory information,  please visit the National Weather Service &ndash; San Juan Office (<a href="http://www.srh.noaa.gov/sju/">http://www.srh.noaa.gov/sju/</a>). For technical questions related to this product, please contact <a href="mailto:CariCOOS@gmail.com?subject=Breaker%20Height%20Estimator">Dr. Miguel Canals.</a></p><br>
+
+            <p><strong><em>Select a beach for detailed report</em></strong></p><br>
+            <p style="text-align:center;">
+                <!--<img src="http://www.caricoos.org/images/l.png" alt="" /> NONE to LOW (&nbsp; &lt; 2 feet)&nbsp; -->
+                <img src="http://www.caricoos.org/images/m.png" alt="" />&nbsp;LOW to MODERATE (between 2 and 4 feet) &nbsp; 
+                <img src="http://www.caricoos.org/images/h.png" alt="" />&nbsp;MODERATE to HIGH (between 4 and 6 feet)&nbsp; 
+                <img src="http://www.caricoos.org/images/x.png" alt="" />&nbsp;HIGH to VERY LARGE(&nbsp; &gt; 6 feet)
+            </p>
+
+            <!-- Map -->
+            <div id="map" style="width: 96%; height: 470px; margin:20px;">&nbsp;</div>
+
+            <div id="datesContainer" style="width: 35%; height: 10%; position: relative;">
+                <div id="dateOnMapToday" 
+                    style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; margin:10px; color:#ffffff; font-size: 12pt;">
+                    Expected Breaker Height For:&nbsp;{{today | date:'fullDate'}}
+                </div>
+                <div id="dateOnMapTomorrow" 
+                    style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; margin:10px; color:#ffffff; font-size: 12pt;">
+                    Expected Breaker Height For:&nbsp;{{tomorrow | date:'fullDate'}}
+                </div>
+            </div>
+
+            <!-- Table -->
+            <ul  style="width: 96%; margin-left:20px; margin-right:20px;"  class="nav nav-tabs">
+                <li ng-click="changeTab('today'); date = today" class="active"><a data-toggle="tab" href="#sectionA">{{today | date:'fullDate'}}</a></li>
+                <li ng-click="changeTab('tomorrow'); date = tomorrow"><a data-toggle="tab" href="#sectionB">{{tomorrow | date:'fullDate'}}</a></li>
+            </ul>
+
+            <div style="width: 96%; margin-left:20px; margin-right:20px;" class="tab-content">
+
+                <div id="sectionA" class="tab-pane fade in active">
+            
+                    <aside>        
+                        <section class="content">
+                            <table class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr ng-class="'headerTable'">
+                                            <th>Town &nbsp; <a href=""
+                                                ng-click="orderByField='pueblo'; reverseSort = !reverseSort"><i class="icon-sort"></i></a>
+                                                <input type="text" placeholder="Search" class="pull-right" ng-model="searchItem">
+                                            </th>
+                                            <th>Beach Name  &nbsp; <a href=""
+                                                ng-click="orderByField='name'; reverseSort = !reverseSort"><i class="icon-sort"></i></a></th>
+                                            <th>Beach Bathymetry</th>
+                                            <th>Breaker Prediction</th>
+                                            <th>Breaker Height & Condition &nbsp; <a href=""
+                                                ng-click="orderByField='hazard_level'; reverseSort = !reverseSort"><i class="icon-sort"></i></a></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody 
+                                    ng-repeat="item in beaches | startFrom: pagination.page * pagination.perPage | limitTo: pagination.perPage | filter:searchItem | orderBy:orderByField:reverseSort">
+                                        <tr>
+                                            <td>{{item.pueblo}}</th>
+                                            <td>{{item.name}}</th>
+                                            <td><a href="" ng-click="generatePupUP(item['beach_link'], 'bathy')">Click Here</a></th>
+                                            <td><a href="" ng-click="generatePupUP(item['beach_link'], 'bulletin')">Click Here</a></th>
+                                            <td><img ng-src="{{item['hazard_level'] | generateIcon }}" />&nbsp;{{item["hazard_level"] | changeWarning}}</th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                
+                                <div style="margin: 5px;" class="btn-group pull-left">
+                                    <button type="button" class="btn btn-default dropdown-toggle" 
+                                    data-toggle="dropdown" aria-expanded="false">
+                                        Per Page <span class="caret"></span>
+                                    </button>
+
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li ng-click="changeNumberOfPages(10)" ><a href="">10</a></li>
+                                        <li ng-click="changeNumberOfPages(20)"><a href="">20</a></li>
+                                        <li ng-click="changeNumberOfPages(30)"><a href="">30</a></li>
+                                        <li ng-click="changeNumberOfPages(40)"><a href="">40</a></li>
+                                        <li ng-click="changeNumberOfPages(50)"><a href="">50</a></li>
+                                        <li ng-click="changeNumberOfPages(500)"><a href="">All</a></li>
+                                    </ul>
+                                </div>
+                                
+                                <div style="margin: 5px;" class="pull-left">
+                                    <ul style="margin: 0px;" class="pagination">
+                                        <li>
+                                            <a href="" ng-click="pagination.prevPage()">&laquo;</a>
+                                        </li>
+                                        <li ng-repeat="n in [] | range: pagination.numPages" ng-class="{active: n == pagination.page}">
+                                            <a href="" ng-click="pagination.toPageId(n)">{{n + 1}}</a>
+                                        </li>
+                                        <li>
+                                            <a href="" ng-click="pagination.nextPage()">&raquo;</a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                        </section>
+                    </aside>
+                </div>
+
+                <div id="sectionB" class="tab-pane fade">
+                    <aside>                  
+                        <section class="content">
+                            <table class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr ng-class="'headerTable'">
+                                            <th>Town &nbsp; <a href=""
+                                                ng-click="orderByField='pueblo'; reverseSort = !reverseSort"><i class="icon-sort"></i></a>
+                                                <input type="text" placeholder="Search" class="pull-right" ng-model="searchItem">
+                                            </th>
+                                            <th>Beach Name  &nbsp; <a href=""
+                                                ng-click="orderByField='name'; reverseSort = !reverseSort"><i class="icon-sort"></i></a></th>
+                                            <th>Beach Bathymetry</th>
+                                            <th>Breaker Prediction</th>
+                                            <th>Breaker Height & Condition &nbsp; <a href=""
+                                                ng-click="orderByField='hazard_level'; reverseSort = !reverseSort"><i class="icon-sort"></i></a></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody 
+                                    ng-repeat="item in beachesTomorrow | startFrom: pagination.page * pagination.perPage | limitTo: pagination.perPage | filter:searchItem | orderBy:orderByField:reverseSort">
+                                        <tr>
+                                            <td>{{item.pueblo}}</th>
+                                            <td>{{item.name}}</th>
+                                            <td><a href="" ng-click="generatePupUP(item['beach_link'], 'bathy')">Click Here</a></th>
+                                            <td><a href="" ng-click="generatePupUP(item['beach_link'], 'bulletin')">Click Here</a></th>
+                                            <td><img ng-src="{{item['hazard_level'] | generateIcon }}" />&nbsp;{{item["hazard_level"] | changeWarning}}</th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                
+                                <div style="margin: 5px;" class="btn-group pull-left">
+                                    <button type="button" class="btn btn-default dropdown-toggle" 
+                                    data-toggle="dropdown" aria-expanded="false">
+                                        Per Page <span class="caret"></span>
+                                    </button>
+
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li ng-click="changeNumberOfPages(10)" ><a href="">10</a></li>
+                                        <li ng-click="changeNumberOfPages(20)"><a href="">20</a></li>
+                                        <li ng-click="changeNumberOfPages(30)"><a href="">30</a></li>
+                                        <li ng-click="changeNumberOfPages(40)"><a href="">40</a></li>
+                                        <li ng-click="changeNumberOfPages(50)"><a href="">50</a></li>
+                                        <li ng-click="changeNumberOfPages(500)"><a href="">All</a></li>
+                                    </ul>
+                                </div>
+                                
+                                <div style="margin: 5px;" class="pull-left">
+                                    <ul style="margin: 0px;" class="pagination">
+                                        <li>
+                                            <a href="" ng-click="pagination.prevPage()">&laquo;</a>
+                                        </li>
+                                        <li ng-repeat="n in [] | range: pagination.numPages" ng-class="{active: n == pagination.page}">
+                                            <a href="" ng-click="pagination.toPageId(n)">{{n + 1}}</a>
+                                        </li>
+                                        <li>
+                                            <a href="" ng-click="pagination.nextPage()">&raquo;</a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                        </section>
+                    </aside>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="myModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 id="popUpTitle" class="modal-title">Modal title </h4>
+              </div>
+              <div class="modal-body">
+                <label class="pull-left">[<a id="linkToPicture" href="" target="_blank">Expand</a>]</label>
+                <img  height="100%" width="100%" id="pupUpImg" src="" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyB2dhC19xC5PHj2E22R_w9--1QrF557JEs&sensor=false"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="simplePagination.js"></script> <!-- Add this module -->
+    <script type="text/javascript">
+
+        (function() {
+            var app = angular.module('beachHazardApp', ['simplePagination']);
+
+            app.controller('beachHazardController', ['$scope', '$http', 'Pagination', function($scope, $http, Pagination){
+            
+                $scope.pagination = Pagination.getNew(); //Pagination module init
+                $scope.beaches = []; //Today Data
+                $scope.beachesTomorrow = []; //Tomorrow Data
+                $scope.today = new Date(); //Today date
+                $scope.tomorrow = new Date($scope.today.getTime() + 24 * 60 * 60 * 1000); //Tomorrow date
+
+                $scope.orderByField = 'hazard_level'; //Default sorting
+                $scope.reverseSort = false; //Reverse sorting
+
+                //Fetch data from today csv
+                $http.get('read.php?csv=today.csv').
+                    success(function(data, status, headers, config) {
+                        $scope.beaches = data; //get JSON object
+                        $scope.pagination = Pagination.getNew(15); //Generate pagination in table
+                        $scope.pagination.numPages = Math.ceil($scope.beaches.length/$scope.pagination.perPage); //Generate number of pages
+                        $scope.plotMap("today");
+                        $scope.toggleMarkers("today");
+                        $("#dateOnMapToday").show();
+
+                    }).
+                    error(function(data, status, headers, config) {
+                        alert("Error loading the data.")
+                });
+
+                //Fetch data from tomorrow csv
+                $http.get('read.php?csv=tomorow.csv').
+                    success(function(data, status, headers, config) {
+                        $scope.beachesTomorrow = data; 
+                        $scope.pagination = Pagination.getNew(15);
+                        $scope.pagination.numPages = Math.ceil($scope.beachesTomorrow.length/$scope.pagination.perPage);
+                        $scope.plotMap("tomorrow");
+                        $scope.toggleMarkers("today");
+                        $("#dateOnMapTomorrow").hide();
+
+                    }).
+                    error(function(data, status, headers, config) {
+                        alert("Error loading the data.")
+                });
+
+                $scope.markers = [];
+                $scope.markersTomorrow = [];
+
+                var mapOptions = {
+                    zoom: 9,
+                    center: new google.maps.LatLng(18.18, -66.0),
+                    mapTypeId: google.maps.MapTypeId.SATELLITE
+                };
+                var infoWindow = new google.maps.InfoWindow();
+
+                $scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
+                $scope.map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(document.getElementById('datesContainer'));
+
+                var createMarker = function (info){
+                    var icon = (info.hazard_level == "extreme") ? "x" :
+                                (info.hazard_level == "high") ? "h" :
+                                (info.hazard_level == "medium") ? "m" : "l";
+
+                    var marker = new google.maps.Marker({
+                        map: $scope.map,
+                        position: new google.maps.LatLng(info.latitude, info.longitude),
+                        icon: "http://www.caricoos.org/images/" + icon + ".png", 
+                        title: info.name + ", " + info.pueblo
+                    });
+                    marker.content = '<a href="' + info.beach_link + '" target="_blank">Breaker Height Bulletin</a>';
+                    
+                    google.maps.event.addListener(marker, 'click', function(){
+                        infoWindow.setContent('<h2>' + marker.title + '</h2>' + marker.content);
+                        $scope.map .setCenter(marker.getPosition());
+                        $scope.map .setZoom(13);
+                        infoWindow.open($scope.map, marker);
+                    });
+
+                    return marker;
+                }  
+
+                $scope.plotMap = function(date) {
+                    if(date == "today") {
+                        for (i = 0; i < $scope.beaches.length; i++){
+                            $scope.markers.push(createMarker($scope.beaches[i]));
+                        }
+                    } else {
+                        for (i = 0; i < $scope.beachesTomorrow.length; i++){
+                            $scope.markersTomorrow.push(createMarker($scope.beachesTomorrow[i]));
+                        }
+                    }
+                }
+
+                $scope.toggleMarkers = function(date) {
+                    if(date == "today") {
+                        for (i = 0; i < $scope.markers.length; i++){
+                            $scope.markers[i].setVisible(true);
+                        }
+                        for (i = 0; i < $scope.markersTomorrow.length; i++){
+                            $scope.markersTomorrow[i].setVisible(false);
+                        }
+                    } else {
+                        for (i = 0; i < $scope.markers.length; i++){
+                            $scope.markers[i].setVisible(false);
+                        }
+                        for (i = 0; i < $scope.markersTomorrow.length; i++){
+                            $scope.markersTomorrow[i].setVisible(true);
+                        }
+                    }
+                }
+
+                $scope.changeTab = function(tab) {
+                    if(tab == "today") {
+                        $scope.toggleMarkers('today');
+                        $("#dateOnMapTomorrow").hide();
+                        $("#dateOnMapToday").show();
+                    } else {
+                        $scope.toggleMarkers('tomorrow');
+                        $("#dateOnMapTomorrow").show();
+                        $("#dateOnMapToday").hide();
+                    }
+                }
+
+                $scope.openInfoWindow = function(e, selectedMarker){
+                    e.preventDefault();
+                    google.maps.event.trigger(selectedMarker, 'click');
+                }
+
+                $scope.changeNumberOfPages = function(num){
+                   $scope.pagination = Pagination.getNew(num);
+                    $scope.pagination.numPages = Math.ceil($scope.beaches.length/$scope.pagination.perPage);
+                }
+
+                $scope.generatePupUP = function(link, type) {
+                    var newLink = link;
+                    document.getElementById("pupUpImg").src = newLink;
+                    document.getElementById("popUpTitle").innerHTML = "Breaker Prediction";
+                    document.getElementById("linkToPicture").href = newLink;
+                    if(type == 'bathy') {
+                        newLink = newLink.replace("bulletin", "bathy");
+                        document.getElementById("pupUpImg").src = newLink;
+                        document.getElementById("popUpTitle").innerHTML = "Beach Bathymetry";
+                        document.getElementById("linkToPicture").href = newLink;
+                    } 
+                    $('#myModal').modal('toggle')
+                }
+                
+            }]);
+            
+            app.filter('changeWarning', function() {
+              return function (text) {
+                    if(text == 'medium') {
+                        return "LOW to MODERATE";
+                    } else if(text == 'high') {
+                        return "MODERATE to HIGH";
+                    } else if(text == 'extreme') {
+                        return "HIGH to VERY LARGE"
+                    } else {
+                        return "NONE to LOW";
+                    }
+                };
+            });
+
+            app.filter('generateIcon', function() {
+              return function (text) {
+                    if(text == 'medium') {
+                        return "http://www.caricoos.org/images/m.png";
+                    } else if(text == 'high') {
+                        return "http://www.caricoos.org/images/h.png";
+                    } else if(text == 'extreme') {
+                        return "http://www.caricoos.org/images/x.png";
+                    } else {
+                        return "http://www.caricoos.org/images/l.png";
+                    }
+                };
+            });
+
+        })();
+
+    </script>
+    
+    </body>
+</html>

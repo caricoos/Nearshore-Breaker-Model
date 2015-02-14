@@ -1,490 +1,726 @@
 <!DOCTYPE html>
 <html lang="en" ng-app='beachHazardApp'>
-    <head>
-        <meta charset="UTF-8">
-        <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> 
-        <link href="http://netdna.bootstrapcdn.com/font-awesome/2.0/css/font-awesome.css" rel="stylesheet">
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-          <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-        <![endif]-->
-        <style>
-            table a:link {
-                color: #666;
-                font-weight: bold;
-                text-decoration:none;
-            }
-            table a:visited {
-                color: #999999;
-                font-weight:bold;
-                text-decoration:none;
-            }
-            table a:active,
-            table a:hover {
-                color: #bd5a35;
-                text-decoration:underline;
-            }
-            table {
-                font-family:Arial, Helvetica, sans-serif;
-                color:#666;
-                font-size:12px;
-                text-shadow: 1px 1px 0px #fff;
-                background:#eaebec;
-                border:#ccc 1px solid;
-
-                -moz-border-radius:3px;
-                -webkit-border-radius:3px;
-                border-radius:3px;
-
-                -moz-box-shadow: 0 1px 2px #d1d1d1;
-                -webkit-box-shadow: 0 1px 2px #d1d1d1;
-                box-shadow: 0 1px 2px #d1d1d1;
-            }
-            table th {
-                padding:21px 25px 22px 25px;
-                border-top:1px solid #fafafa;
-                border-bottom:1px solid #e0e0e0;
-
-                background: #ededed;
-                background: -webkit-gradient(linear, left top, left bottom, from(#ededed), to(#ebebeb));
-                background: -moz-linear-gradient(top,  #ededed,  #ebebeb);
-            }
-            table th:first-child {
-                text-align: left;
-                padding-left:20px;
-            }
-            table tr:first-child th:first-child {
-                -moz-border-radius-topleft:3px;
-                -webkit-border-top-left-radius:3px;
-                border-top-left-radius:3px;
-            }
-            table tr:first-child th:last-child {
-                -moz-border-radius-topright:3px;
-                -webkit-border-top-right-radius:3px;
-                border-top-right-radius:3px;
-            }
-            table tr {
-                text-align: center;
-                padding-left:20px;
-            }
-            table td:first-child {
-                text-align: left;
-                padding-left:20px;
-                border-left: 0;
-            }
-            table td {
-                padding:18px;
-                border-top: 1px solid #ffffff;
-                border-bottom:1px solid #e0e0e0;
-                border-left: 1px solid #e0e0e0;
-
-                background: #fafafa;
-                background: -webkit-gradient(linear, left top, left bottom, from(#fbfbfb), to(#fafafa));
-                background: -moz-linear-gradient(top,  #fbfbfb,  #fafafa);
-            }
-            table tr.even td {
-                background: #f6f6f6;
-                background: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#f6f6f6));
-                background: -moz-linear-gradient(top,  #f8f8f8,  #f6f6f6);
-            }
-            table tr:last-child td {
-                border-bottom:0;
-            }
-            table tr:last-child td:first-child {
-                -moz-border-radius-bottomleft:3px;
-                -webkit-border-bottom-left-radius:3px;
-                border-bottom-left-radius:3px;
-            }
-            table tr:last-child td:last-child {
-                -moz-border-radius-bottomright:3px;
-                -webkit-border-bottom-right-radius:3px;
-                border-bottom-right-radius:3px;
-            }
-            table tr:hover td {
-                background: #f2f2f2;
-                background: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#f0f0f0));
-                background: -moz-linear-gradient(top,  #f2f2f2,  #f0f0f0);  
-            }
-        </style>
-    </head>
-
-    <body ng-controller="beachHazardController as beachHazard">
-        <div class="table-container" style="margin: 20px;">
-
-
-            <!-- Introducction -->
-
-            <p>This preliminary experimental product  provides estimates of breaker heights (face value, crest to through) for  many of the most popular beaches in Puerto Rico. The estimated breaker  heights are based beach-specific predictions from the CariCOOS Nearshore  Wave Model (
-            <a href="http://caricoos.org/drupal/swan_multigrid">http://caricoos.org/drupal/swan_multigrid</a>) and adjustments to these predictions based on analytical and empirical  formulae. Three levels of estimated breaker conditions are presented in  the map below: low to moderate (maximum breaker heights &lt; 4 feet),  moderate to high (maximum breaker heights between 4 and 6 feet), and  high to very large (maximum breaker heights &gt; 6 feet). The estimates  of maximum breaker heights are conservative and can overestimate the  actual breaker heights, however, larger breaking waves than those  predicted could occur.
-
-            <p>This product is still in an experimental  stage and should not be used to make decisions at this moment. In  addition, the colored flags are only suggestive of breaker height  conditions and do not constitute an official beach hazards warning level  for these beaches. For official warning and advisory information,  please visit the National Weather Service &ndash; San Juan Office (<a href="http://www.srh.noaa.gov/sju/">http://www.srh.noaa.gov/sju/</a>). For technical questions related to this product, please contact <a href="mailto:CariCOOS@gmail.com?subject=Breaker%20Height%20Estimator">Dr. Miguel Canals.</a></p><br>
-
-            <p><strong><em>Select a beach for detailed report</em></strong></p><br>
-            <p style="text-align:center;">
-                <!--<img src="http://www.caricoos.org/images/l.png" alt="" /> NONE to LOW (&nbsp; &lt; 2 feet)&nbsp; -->
-                <img src="http://www.caricoos.org/images/m.png" alt="" />&nbsp;LOW to MODERATE (between 2 and 4 feet) &nbsp; 
-                <img src="http://www.caricoos.org/images/h.png" alt="" />&nbsp;MODERATE to HIGH (between 4 and 6 feet)&nbsp; 
-                <img src="http://www.caricoos.org/images/x.png" alt="" />&nbsp;HIGH to VERY LARGE(&nbsp; &gt; 6 feet)
-            </p>
-
-            <!-- Map -->
-            <div id="map" style="width: 96%; height: 470px; margin:20px;">&nbsp;</div>
-
-            <div id="datesContainer" style="width: 35%; height: 10%; position: relative;">
-                <div id="dateOnMapToday" 
-                    style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; margin:10px; color:#ffffff; font-size: 12pt;">
-                    Expected Breaker Height For:&nbsp;{{today | date:'fullDate'}}
-                </div>
-                <div id="dateOnMapTomorrow" 
-                    style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; margin:10px; color:#ffffff; font-size: 12pt;">
-                    Expected Breaker Height For:&nbsp;{{tomorrow | date:'fullDate'}}
-                </div>
+   <head>
+      <meta charset="UTF-8">
+      <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+      <title>CariCOOS - Sea Grant Nearshore Breaker Model  | www.caricoos.org</title>
+      <link rel="shortcut icon" href="http://www.caricoos.org/drupal/sites/default/files/newsflash_favicon.ico" type="image/x-icon" />
+      <link type="text/css" rel="stylesheet" media="all" 
+         href="http://www.caricoos.org/drupal/sites/default/files/css/css_236952954528527b50763371b7471675.css" />
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+      <link href="http://netdna.bootstrapcdn.com/font-awesome/2.0/css/font-awesome.css" rel="stylesheet">
+      <link rel="stylesheet" type="text/css" href="drupal_css.css">
+      <!--[if IE]>
+      <style type="text/css" media="all">@import "http://www.caricoos.org/drupal/themes/newsflash/css/ie.css";</style>
+      <![endif]-->
+      <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+      <![endif]-->
+      <!--[if lte IE 6]>
+      <script type="text/javascript" src="http://www.caricoos.org/drupal/themes/newsflash/js/suckerfish.js"></script>
+      <![endif]-->
+   </head>
+   <body ng-controller="beachHazardController as beachHazard" 
+    style=" background-image: url('blue.png');" >
+      <div id="page">
+      <div id="header" class="clear-block">
+         <div id="logo-title">
+            <a href="http://www.caricoos.org/drupal/" title="Home"> 
+            <img src="http://www.caricoos.org/drupal/sites/default/files/banner4.png" alt="Home" id="logo" /> 
+            </a>
+         </div>
+         <!-- /logo-title -->
+         <div id="name-and-slogan">
+         </div>
+         <!-- /name-and-slogan -->
+         <div id="search"></div>
+         <div id="primarymenu"></div>
+         <div style="clear:both"></div>
+         <div id="suckerfishmenu" class="clear-block">
+            <div class="block block-menu" id="block-menu-primary-links">
+               <div class="content">
+                  <ul style="font-family : Arial, Verdana, sans-serif; font-size:13px; font-weight: normal;" class="menu">
+                     <li class="expanded first">
+                        <a href="http://www.caricoos.org/drupal/" title="">Home</a>
+                        <ul class="menu">
+                           <li class="leaf first">
+                              <a href="http://www.caricoos.org/drupal/USVI_Map" title="U.S. Virgin Islands">USVI Map</a>
+                           </li>
+                           <li class="leaf last">
+                              <a href="http://www.caricoos.org/drupal/sju_map" title="San Juan Bay">San Juan Map</a>
+                           </li>
+                        </ul>
+                     </li>
+                     <li class="collapsed">
+                        <a href="http://cara.uprm.edu/?q=news" title="">News</a>
+                     </li>
+                     <li class="expanded">
+                        <a href="http://www.caricoos.org/drupal/wind_map" title="">Winds</a>
+                        <ul class="menu">
+                           <li class="expanded first">
+                              <a href="http://www.caricoos.org/drupal/wind_map" title="Wind Observation Map">Observations</a>
+                              <ul class="menu">
+                                 <li class="leaf first last">
+                                    <a href="http://www.caricoos.org/drupal/satellite_wind_observations" 
+                                       title="Satellite Wind Observations">Satellite Readings</a>
+                                 </li>
+                              </ul>
+                           </li>
+                           <li class="expanded">
+                              <a href="http://www.caricoos.org/drupal/nws_graphical_forecast" title="Wind Models">Models</a>
+                              <ul class="menu">
+                                 <li class="leaf first">
+                                    <a href="http://www.caricoos.org/drupal/nws_graphical_forecast" 
+                                       title="National Weather Service Wind Forecast">NWS Graphical Forecast</a>
+                                 </li>
+                                 <li class="leaf last">
+                                    <a href="http://www.caricoos.org/drupal/wrf_1km" title="CariCOOS WRF 1Km Operational Wind Model">CariCOOS WRF1Km</a>
+                                 </li>
+                              </ul>
+                           </li>
+                           <li class="expanded last">
+                              <a href="http://storage.caricoos.org/tutorial/English/Winds/full_wind/player.html" title="">Wind-Tutorials</a>
+                              <ul class="menu">
+                                 <li class="leaf first">
+                                    <a href="http://storage.caricoos.org/tutorial/English/Winds/full_wind/player.html" 
+                                       title="Wind-Tutorial English">Wind-Tutorial English</a>
+                                 </li>
+                                 <li class="leaf last">
+                                    <a href="http://storage.caricoos.org/tutorial/Espanol/Viento/Complete_Tutorial/player.html" 
+                                       title="Wind-Tutorial Spanish">Wind-Tutorial Spanish</a>
+                                 </li>
+                              </ul>
+                           </li>
+                        </ul>
+                     </li>
+                     <li class="expanded">
+                        <a href="http://www.caricoos.org/drupal/wave_map" title="">Waves</a>
+                        <ul class="menu">
+                           <li class="expanded first">
+                              <a href="http://www.caricoos.org/drupal/wave_map" title="Wave Observations">Observations</a>
+                              <ul class="menu">
+                                 <li class="leaf first last">
+                                    <a href="http://www.caricoos.org/drupal/waveheight" title="Real Time Waveheight">Real Time Buoy Wave Height</a>
+                                 </li>
+                              </ul>
+                           </li>
+                           <li class="expanded">
+                              <a href="http://www.caricoos.org/drupal/swan_multigrid" title="Wave Models (Forecast)">Models</a>
+                              <ul class="menu">
+                                 <li class="leaf first">
+                                    <a href="http://www.caricoos.org/drupal/swan_multigrid" title="Multi Grid Wave Model">SWAN - Simulating Waves Nearshore</a>
+                                 </li>
+                                 <li class="leaf">
+                                    <a href="http://www.caricoos.org/drupal/swan_virtual" title="SWAN Point Forecast">SWAN Point Forecast</a>
+                                 </li>
+                                 <li class="leaf">
+                                    <a href="http://www.caricoos.org/drupal/wavewatch_wave_forecasts" title="WaveWatch III Forecasts">Wave Watch III Forecast</a>
+                                 </li>
+                                 <li class="leaf">
+                                    <a href="http://www.caricoos.org/drupal/nws_wave_forecast" title="">NWS Graphical Forecast</a>
+                                 </li>
+                                 <li class="leaf last">
+                                    <a href="http://www.caricoos.org/drupal/nearshore_breaker" 
+                                       title="Beach breakers estimator">CariCOOS - Sea Grant Nearshore Breaker Model</a>
+                                 </li>
+                              </ul>
+                           </li>
+                           <li class="expanded last">
+                              <a href="http://storage.caricoos.org/tutorial/English/Waves/full_wave/player.html" title="">Waves-Tutorial</a>
+                              <ul class="menu">
+                                 <li class="leaf first">
+                                    <a href="http://storage.caricoos.org/tutorial/English/Waves/full_wave/player.html" title="">Waves Tutorial English</a>
+                                 </li>
+                                 <li class="leaf last">
+                                    <a href="http://storage.caricoos.org/tutorial/Espanol/Olas/Tutorial_de_Olas/player.html" title="">Waves Tutotial Spanish</a>
+                                 </li>
+                              </ul>
+                           </li>
+                        </ul>
+                     </li>
+                     <li class="expanded">
+                        <a href="http://www.caricoos.org/drupal/current_map" title="">Currents</a>
+                        <ul class="menu">
+                           <li class="expanded first">
+                              <a href="http://www.caricoos.org/drupal/current_map" title="Current Observations">Observations</a>
+                              <ul class="menu">
+                                 <li class="leaf first"><a href="http://www.caricoos.org/drupal/hf_radar" title="Surface Currents - HF Radar">Mona Passage – HF Radar</a></li>
+                                 <li class="leaf last"><a href="http://www.caricoos.org/drupal/astrodynamics" title="AOML-NOAA -Coastwatch">Geostrophic Currents</a></li>
+                              </ul>
+                           </li>
+                           <li class="expanded last">
+                              <a href="http://www.caricoos.org/drupal/ncom_amseas" title="Current Model (Forecast)">Models</a>
+                              <ul class="menu">
+                                 <li class="leaf first"><a href="http://www.caricoos.org/drupal/ncom_amseas" title="NCOM  AmSeas">NCOM AmSeas</a></li>
+                                 <li class="leaf last"><a href="http://www.caricoos.org/drupal/ocean_nowcast" title="Intra-Americas Sea Ocean Nowcast/Forecast">HYCOM 1/12 Forecast</a></li>
+                              </ul>
+                           </li>
+                        </ul>
+                     </li>
+                     <li class="expanded">
+                        <a href="http://www.caricoos.org/drupal/caricoos_buoys" title="">CariCOOS Buoys</a>
+                        <ul class="menu">
+                           <li class="leaf first"><a href="/drupal/ponce" title="">Ponce</a></li>
+                           <li class="leaf"><a href="http://www.caricoos.org/drupal/san_juan" title="San Juan">San Juan</a></li>
+                           <li class="leaf"><a href="http://www.caricoos.org/drupal/vieques" title="East Puerto Rico">Vieques Sound</a></li>
+                           <li class="leaf"><a href="http://www.caricoos.org/drupal/rincon" title="Rincon, PR">Rincon, PR</a></li>
+                           <li class="leaf"><a href="http://www.caricoos.org/drupal/virgin_islands" title="Virgin Islands">St. John</a></li>
+                           <li class="leaf"><a href="http://www.caricoos.org/drupal/st_thomas" title="St. Thomas Buoy -USVI">St. Thomas</a></li>
+                           <li class="leaf last"><a href="http://caricoos.org/drupal/buoys" title="Buoy Monitoring and 10-Day Data, CariCOOS Region">Buoy Monitoring and 10-Day Data</a></li>
+                        </ul>
+                     </li>
+                     <li class="expanded">
+                        <a href="http://www.caricoos.org/drupal/tides_map" title="">Tides</a>
+                        <ul class="menu">
+                           <li class="leaf first"><a href="/drupal/tides_map" title="">Tides Map</a></li>
+                           <li class="leaf"><a href="http://www.caricoos.org/drupal/lunar_perigee" title="Lunar Calculator">Lunar Calculator</a></li>
+                           <li class="leaf last"><a href="http://www.caricoos.org/drupal/lunar_phase" title="">Lunar Phase</a></li>
+                        </ul>
+                     </li>
+                     <li class="expanded">
+                        <a href="http://www.caricoos.org/drupal/water_quality" title="Water Quality Product Development">Water Quality</a>
+                        <ul class="menu">
+                           <li class="leaf first"><a href="http://www.caricoos.org/drupal/ocean_color" title="">Ocean Color</a></li>
+                           <li class="leaf"><a href="http://www.caricoos.org/drupal/water_quality" title="">Product Development</a></li>
+                           <li class="expanded">
+                              <a href="http://www.caricoos.org/drupal/mapco2" title="MapCO2 Buoy - Ocean Acidification Program">Ocean Acidification Program</a>
+                              <ul class="menu">
+                                 <li class="leaf first"><a href="http://www.caricoos.org/drupal/whatis_oa" title="From the atmosphere toward the oceans">What is Ocean Acidification?</a></li>
+                                 <li class="leaf"><a href="http://www.caricoos.org/drupal/oa_trends" title="Ocean Acidification Trends
+                                    ">Ocean Acidification Trends</a></li>
+                                 <li class="leaf last"><a href="http://www.caricoos.org/drupal/aragonite" title="Seawater Aragonite Saturation State">Saturation State</a></li>
+                              </ul>
+                           </li>
+                           <li class="expanded">
+                              <a href="http://www.gobierno.pr/JCA/Biblioteca/Publicaciones/ProgramaMonitoriaPlayas/Indice_Calidad_agua.htm" title="">Beach Water Quality</a>
+                              <ul class="menu">
+                                 <li class="leaf first"><a href="http://www2.pr.gov/agencias/jca/Pages/Monitor%C3%ADadePlayas.aspx" title="">Puerto Rico</a></li>
+                                 <li class="leaf"><a href="http://dpnr.vi.gov/environmental-protection/weekly-beach-press-release/" title="">U.S. Virgin islands</a></li>
+                                 <li class="leaf last"><a href="http://www.surfrider.org/blue-water-task-force/chapter/4" title="Surfrider Foundation - Rincon Chapter Water Testing Program (Blue Water Task Force)">Surfrider  Water Testing Program</a></li>
+                              </ul>
+                           </li>
+                           <li class="leaf"><a href="http://coastwatch.noaa.gov/cwn/search/interface.html" title="">CoastWatch Caribbean and Gulf of Mexico Operational Data</a></li>
+                           <li class="leaf last"><a href="http://www.caricoos.org/drupal/node/228" title="Coastal Sedimentation">Coastal Sedimentation</a></li>
+                        </ul>
+                     </li>
+                     <li class="expanded">
+                        <a href="http://www.caricoos.org/drupal/nearcoastal" title="">NWS Marine Forecasts</a>
+                        <ul class="menu">
+                           <li class="leaf first"><a href="/drupal/nearcoastal" title="Nearcoastal zone Puerto Rico and US Virgin Islands">Nearcoastal - PR &amp; USVI</a></li>
+                           <li class="leaf last"><a href="http://www.caricoos.org/drupal/offshore" title="Offshore - Gulf, Caribbean and Tropical Atlantic">Offshore - Caribbean</a></li>
+                        </ul>
+                     </li>
+                     <li class="expanded">
+                        <a href="http://www.caricoos.org/drupal/data_download" title="Data Download">Data Download</a>
+                        <ul class="menu">
+                           <li class="leaf first"><a href="http://www.caricoos.org/drupal/data_download" title="">CariCOOS Data Access</a></li>
+                           <li class="leaf last"><a href="http://dm2.caricoos.org/thredds/catalog.html" title="">Thredds2 Catalog</a></li>
+                        </ul>
+                     </li>
+                     <li class="expanded">
+                        <a href="http://www.caricoos.org/drupal/hurricane_season" title="Hurricane Season">Hurricane Season</a>
+                        <ul class="menu">
+                           <li class="leaf first"><a href="http://www.caricoos.org/drupal/usvi_storm_surge" title="Storm Surge Atlas for the USVI">Storm Surge USVI Map</a></li>
+                           <li class="leaf last"><a href="http://www.caricoos.org/drupal/pr_storm_surge" title="Storm Surge Maps for Puerto Rico">Storm Surge PR Map</a></li>
+                        </ul>
+                     </li>
+                     <li class="expanded">
+                        <a href="http://www.caricoos.org/drupal/navy_aerosol_analysis" title="">More</a>
+                        <ul class="menu">
+                           <li class="leaf first"><a href="http://www.caricoos.org/drupal/navy_aerosol_analysis" title="Navy Aerosol Analysis and Prediction System (NAAPS)">Aerosols and Visibility</a></li>
+                           <li class="leaf"><a href="http://blue2.caricoos.org/education/index.html" title="">Education</a></li>
+                           <li class="expanded">
+                              <a href="http://www.caricoos.org/drupal/node/71" title="">Caribbean Time Series</a>
+                              <ul class="menu">
+                                 <li class="leaf first"><a href="http://www.caricoos.org/drupal/node/71" title="">The Caribbean Time Series Program</a></li>
+                                 <li class="leaf last"><a href="http://www.caricoos.org/drupal/node/69" title="">CaTS Data</a></li>
+                              </ul>
+                           </li>
+                           <li class="leaf"><a href="http://www.caricoos.org/drupal/pr_usvi_noaa_chart_booklets_for_the_caribbean" title="">Booklet Charts</a></li>
+                           <li class="leaf"><a href="http://www.caricoos.org/drupal/jobos_bay" title="">Jobos Bay Research</a></li>
+                           <li class="leaf"><a href="http://www.caricoos.org/drupal/ship_tracker" title="">Ship Tracker</a></li>
+                           <li class="leaf"><a href="http://www.caricoos.org/drupal/links" title="">Other Useful Links</a></li>
+                           <li class="leaf"><a href="http://coconet.unavco.org/" title="Continuously Operating Caribbean GPS Observational Network">COCONet</a></li>
+                           <li class="leaf"><a href="http://www.caricoos.org/drupal/testbed_whitepaper" title="Whitepaper on the establishment of an islands wave, surge and hydrologic testbed based on Puerto Rico and the U.S. Virgin Islands">WhitePaper - Hydrologic testbed based on Puerto Rico and the U.S. Virgin Islands</a></li>
+                           <li class="leaf"><a href="http://www.caricoos.org/drupal/arcgis" title="ARCGIS">ARCGIS</a></li>
+                           <li class="leaf last"><a href="http://www.caricoos.org/drupal/summer_internship" title="Summer Internship">Summer Internship 2015</a></li>
+                        </ul>
+                     </li>
+                     <li class="expanded last">
+                        <a href="http://cara.uprm.edu" title="About">About CariCOOS</a>
+                        <ul class="menu">
+                           <li class="leaf first"><a href="http://cara.uprm.edu/?q=node/1" title="Caribbean Regional Association">CaRA Homepage</a></li>
+                           <li class="leaf"><a href="http://www.caricoos.org/drupal/about_us" title="What is CariCOOS">What is CariCOOS</a></li>
+                           <li class="leaf"><a href="http://cara.uprm.edu/?q=news" title="CaRA News">CaRA News</a></li>
+                           <li class="leaf"><a href="http://caricoos.org/drupal/sites/default/files/factsheet2011_cara.pdf" title="CaRA Fact Sheet">Fact Sheet</a></li>
+                           <li class="leaf last"><a href="http://cara.uprm.edu/?q=node/3" title="">Contact</a></li>
+                        </ul>
+                     </li>
+                  </ul>
+               </div>
             </div>
-
-            <!-- Table -->
-            <ul  style="width: 96%; margin-left:20px; margin-right:20px;"  class="nav nav-tabs">
-                <li ng-click="changeTab('today'); date = today" class="active"><a data-toggle="tab" href="#sectionA">{{today | date:'fullDate'}}</a></li>
-                <li ng-click="changeTab('tomorrow'); date = tomorrow"><a data-toggle="tab" href="#sectionB">{{tomorrow | date:'fullDate'}}</a></li>
-            </ul>
-
-            <div style="width: 96%; margin-left:20px; margin-right:20px;" class="tab-content">
-
-                <div id="sectionA" class="tab-pane fade in active">
-            
-                    <aside>        
-                        <section class="content">
-                            <table class="table table-bordered table-hover">
-                                    <thead>
-                                        <tr ng-class="'headerTable'">
-                                            <th>Town &nbsp; <a href=""
-                                                ng-click="orderByField='pueblo'; reverseSort = !reverseSort"><i class="icon-sort"></i></a>
-                                                <input type="text" placeholder="Search" class="pull-right" ng-model="searchItem">
-                                            </th>
-                                            <th>Beach Name  &nbsp; <a href=""
-                                                ng-click="orderByField='name'; reverseSort = !reverseSort"><i class="icon-sort"></i></a></th>
-                                            <th>Beach Bathymetry</th>
-                                            <th>Breaker Prediction</th>
-                                            <th>Breaker Height & Condition &nbsp; <a href=""
-                                                ng-click="orderByField='hazard_level'; reverseSort = !reverseSort"><i class="icon-sort"></i></a></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody 
-                                    ng-repeat="item in beaches | startFrom: pagination.page * pagination.perPage | limitTo: pagination.perPage | filter:searchItem | orderBy:orderByField:reverseSort">
-                                        <tr>
-                                            <td>{{item.pueblo}}</th>
-                                            <td>{{item.name}}</th>
-                                            <td><a href="" ng-click="generatePupUP(item['beach_link'], 'bathy')">Click Here</a></th>
-                                            <td><a href="" ng-click="generatePupUP(item['beach_link'], 'bulletin')">Click Here</a></th>
-                                            <td><img ng-src="{{item['hazard_level'] | generateIcon }}" />&nbsp;{{item["hazard_level"] | changeWarning}}</th>
-                                        </tr>
+         </div>
+      </div>
+      <!-- /header -->
+      <div id="middlecontainer">
+         <div id="main">
+            <div id="squeeze">
+               <div id="squeeze-content">
+                  <div id="inner-content">
+                     <h1 style="font-family : Arial, Verdana, sans-serif; font-size:22px; font-weight: bold;" 
+                        class="title">CariCOOS - Sea Grant Nearshore Breaker Model </h1>
+                     <div class="tabs"></div>
+                     <div id="node-235" class="node node-page">
+                        <!-- App Code -->
+                        <div class="table-container" style="margin: 20px;">
+                           <!-- Introducction -->
+                           <p style="font-family : Arial, Verdana, sans-serif; font-size:13px; font-weight: normal;" >This preliminary experimental product  provides estimates of breaker heights (face value, crest to through) for  many of the most popular beaches in Puerto Rico. The estimated breaker  heights are based beach-specific predictions from the CariCOOS Nearshore  Wave Model (
+                              <a href="http://caricoos.org/drupal/swan_multigrid">http://caricoos.org/drupal/swan_multigrid</a>) and adjustments to these predictions based on analytical and empirical  formulae. Three levels of estimated breaker conditions are presented in  the map below: low to moderate (maximum breaker heights &lt; 4 feet),  moderate to high (maximum breaker heights between 4 and 6 feet), and  high to very large (maximum breaker heights &gt; 6 feet). The estimates  of maximum breaker heights are conservative and can overestimate the  actual breaker heights, however, larger breaking waves than those  predicted could occur.
+                           <p>This product is still in an experimental  stage and should not be used to make decisions at this moment. In  addition, the colored flags are only suggestive of breaker height  conditions and do not constitute an official beach hazards warning level  for these beaches. For official warning and advisory information,  please visit the National Weather Service &ndash; San Juan Office (<a href="http://www.srh.noaa.gov/sju/">http://www.srh.noaa.gov/sju/</a>). For technical questions related to this product, please contact <a href="mailto:CariCOOS@gmail.com?subject=Breaker%20Height%20Estimator">Dr. Miguel Canals.</a></p>
+                           <br>
+                           <p><strong><em>Select a beach for detailed report</em></strong></p>
+                           <br>
+                           <p style="text-align:center;">
+                              <!--<img src="http://www.caricoos.org/images/l.png" alt="" /> NONE to LOW (&nbsp; &lt; 2 feet)&nbsp; -->
+                              <img src="http://www.caricoos.org/images/m.png" alt="" />&nbsp;LOW to MODERATE (between 2 and 4 feet) &nbsp; 
+                              <img src="http://www.caricoos.org/images/h.png" alt="" />&nbsp;MODERATE to HIGH (between 4 and 6 feet)&nbsp; 
+                              <img src="http://www.caricoos.org/images/x.png" alt="" />&nbsp;HIGH to VERY LARGE(&nbsp; &gt; 6 feet)
+                           </p>
+                           <!-- Map -->
+                           <div id="map" style="width: 96%; height: 470px; margin:20px;">&nbsp;</div>
+                           <div id="datesContainer" style="width: 35%; height: 10%; position: relative;">
+                              <div id="dateOnMapToday" 
+                                 style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; margin:10px; color:#ffffff; font-size: 12pt;">
+                                 Expected Breaker Height For:&nbsp;{{today | date:'fullDate'}}
+                              </div>
+                              <div id="dateOnMapTomorrow" 
+                                 style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; margin:10px; color:#ffffff; font-size: 12pt;">
+                                 Expected Breaker Height For:&nbsp;{{tomorrow | date:'fullDate'}}
+                              </div>
+                           </div>
+                           <!-- Table -->
+                           <ul  style="width: 96%; margin-left:20px; margin-right:20px;"  class="nav nav-tabs">
+                              <li ng-click="changeTab('today'); date = today" class="active"><a data-toggle="tab" href="#sectionA">{{today | date:'fullDate'}}</a></li>
+                              <li ng-click="changeTab('tomorrow'); date = tomorrow"><a data-toggle="tab" href="#sectionB">{{tomorrow | date:'fullDate'}}</a></li>
+                           </ul>
+                           <div style="width: 96%; margin-left:20px; margin-right:20px;" class="tab-content">
+                              <div id="sectionA" class="tab-pane fade in active">
+                                 <aside>
+                                    <section class="content">
+                                       <table class="table table-bordered table-hover">
+                                          <thead>
+                                             <tr ng-class="'headerTable'">
+                                                <th>Town &nbsp; <a href=""
+                                                   ng-click="orderByField='pueblo'; reverseSort = !reverseSort"><i class="icon-sort"></i></a>
+                                                   <input type="text" placeholder="Search" class="pull-right" ng-model="searchItem">
+                                                </th>
+                                                <th>Beach Name  &nbsp; <a href=""
+                                                   ng-click="orderByField='name'; reverseSort = !reverseSort"><i class="icon-sort"></i></a></th>
+                                                <th>Beach Bathymetry</th>
+                                                <th>Breaker Prediction</th>
+                                                <th>Breaker Height & Condition &nbsp; <a href=""
+                                                   ng-click="orderByField='hazard_level'; reverseSort = !reverseSort"><i class="icon-sort"></i></a></th>
+                                             </tr>
+                                          </thead>
+                                          <tbody 
+                                             ng-repeat="item in beaches | startFrom: pagination.page * pagination.perPage | limitTo: pagination.perPage | filter:searchItem | orderBy:orderByField:reverseSort">
+                                             <tr>
+                                                <td>{{item.pueblo}}</th>
+                                                <td>{{item.name}}</th>
+                                                <td><a href="" ng-click="generatePupUP(item['beach_link'], 'bathy')">Click Here</a></th>
+                                                <td><a href="" ng-click="generatePupUP(item['beach_link'], 'bulletin')">Click Here</a></th>
+                                                <td><img ng-src="{{item['hazard_level'] | generateIcon }}" />&nbsp;{{item["hazard_level"] | changeWarning}}</th>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                       <div style="margin: 5px;" class="btn-group pull-left">
+                                          <button type="button" class="btn btn-default dropdown-toggle" 
+                                             data-toggle="dropdown" aria-expanded="false">
+                                          Per Page <span class="caret"></span>
+                                          </button>
+                                          <ul class="dropdown-menu" role="menu">
+                                             <li ng-click="changeNumberOfPages(10)" ><a href="">10</a></li>
+                                             <li ng-click="changeNumberOfPages(20)"><a href="">20</a></li>
+                                             <li ng-click="changeNumberOfPages(30)"><a href="">30</a></li>
+                                             <li ng-click="changeNumberOfPages(40)"><a href="">40</a></li>
+                                             <li ng-click="changeNumberOfPages(50)"><a href="">50</a></li>
+                                             <li ng-click="changeNumberOfPages(500)"><a href="">All</a></li>
+                                          </ul>
+                                       </div>
+                                       <div style="margin: 5px;" class="pull-left">
+                                          <ul style="margin: 0px;" class="pagination">
+                                             <li>
+                                                <a href="" ng-click="pagination.prevPage()">&laquo;</a>
+                                             </li>
+                                             <li ng-repeat="n in [] | range: pagination.numPages" ng-class="{active: n == pagination.page}">
+                                                <a href="" ng-click="pagination.toPageId(n)">{{n + 1}}</a>
+                                             </li>
+                                             <li>
+                                                <a href="" ng-click="pagination.nextPage()">&raquo;</a>
+                                             </li>
+                                          </ul>
+                                       </div>
+                                    </section>
+                                 </aside>
+                              </div>
+                              <div id="sectionB" class="tab-pane fade">
+                                 <aside>
+                                    <section class="content">
+                                       <table class="table table-bordered table-hover">
+                                          <thead>
+                                             <tr ng-class="'headerTable'">
+                                                <th>Town &nbsp; <a href=""
+                                                   ng-click="orderByField='pueblo'; reverseSort = !reverseSort"><i class="icon-sort"></i></a>
+                                                   <input type="text" placeholder="Search" class="pull-right" ng-model="searchItem">
+                                                </th>
+                                                <th>Beach Name  &nbsp; <a href=""
+                                                   ng-click="orderByField='name'; reverseSort = !reverseSort"><i class="icon-sort"></i></a></th>
+                                                <th>Beach Bathymetry</th>
+                                                <th>Breaker Prediction</th>
+                                                <th>Breaker Height & Condition &nbsp; <a href=""
+                                                   ng-click="orderByField='hazard_level'; reverseSort = !reverseSort"><i class="icon-sort"></i></a></th>
+                                             </tr>
+                                          </thead>
+                                          <tbody 
+                                             ng-repeat="item in beachesTomorrow | startFrom: pagination.page * pagination.perPage | limitTo: pagination.perPage | filter:searchItem | orderBy:orderByField:reverseSort">
+                                             <tr>
+                                                <td>{{item.pueblo}}</th>
+                                                <td>{{item.name}}</th>
+                                                <td><a href="" ng-click="generatePupUP(item['beach_link'], 'bathy')">Click Here</a></th>
+                                                <td><a href="" ng-click="generatePupUP(item['beach_link'], 'bulletin')">Click Here</a></th>
+                                                <td><img ng-src="{{item['hazard_level'] | generateIcon }}" />&nbsp;{{item["hazard_level"] | changeWarning}}</th>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                       <div style="margin: 5px;" class="btn-group pull-left">
+                                          <button type="button" class="btn btn-default dropdown-toggle" 
+                                             data-toggle="dropdown" aria-expanded="false">
+                                          Per Page <span class="caret"></span>
+                                          </button>
+                                          <ul class="dropdown-menu" role="menu">
+                                             <li ng-click="changeNumberOfPages(10)" ><a href="">10</a></li>
+                                             <li ng-click="changeNumberOfPages(20)"><a href="">20</a></li>
+                                             <li ng-click="changeNumberOfPages(30)"><a href="">30</a></li>
+                                             <li ng-click="changeNumberOfPages(40)"><a href="">40</a></li>
+                                             <li ng-click="changeNumberOfPages(50)"><a href="">50</a></li>
+                                             <li ng-click="changeNumberOfPages(500)"><a href="">All</a></li>
+                                          </ul>
+                                       </div>
+                                       <div style="margin: 5px;" class="pull-left">
+                                          <ul style="margin: 0px;" class="pagination">
+                                             <li>
+                                                <a href="" ng-click="pagination.prevPage()">&laquo;</a>
+                                             </li>
+                                             <li ng-repeat="n in [] | range: pagination.numPages" ng-class="{active: n == pagination.page}">
+                                                <a href="" ng-click="pagination.toPageId(n)">{{n + 1}}</a>
+                                             </li>
+                                             <li>
+                                                <a href="" ng-click="pagination.nextPage()">&raquo;</a>
+                                             </li>
+                                          </ul>
+                                       </div>
+                                    </section>
+                                 </aside>
+                              </div>
+                           </div>
+                        </div>
+                        <div id="myModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                           <div class="modal-dialog modal-lg">
+                              <div class="modal-content">
+                                 <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 id="popUpTitle" class="modal-title">Modal title </h4>
+                                 </div>
+                                 <div class="modal-body">
+                                    <label class="pull-left">[<a id="linkToPicture" href="" target="_blank">Expand</a>]</label>
+                                    <img  height="100%" width="100%" id="pupUpImg" src="" />
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <!-- ./App Code -->
+                     </div>
+                     <br><br>
+                     <div id="content-bottom">
+                        <div class="block block-block" id="block-block-5">
+                           <h2 class="title">Disclaimer</h2>
+                           <div class="content">
+                              <p><font size="2" face="arial" color="0066CC" font="">This information is presented as a good faith service to the scientific   community, the public in general and to our colleagues and friends. The   information, views and opinions herein provided should not be viewed as   formally accurate scientific data and/or advice that can be relied  upon  without proper verification and validation. This service should  not be  construed as a substitute for specific data that could be  obtained  though official sources. If any inaccuracy is observed, please inform CaRA as soon as possible   for verification and correction, as necessary. Use of and reliance upon   the information provided in this web site signifies that its user(s)   understands and has(ve) accepted of the above mentioned caveat and   conditions.</font></p>
+                           </div>
+                        </div>
+                        <div class="block block-block" id="block-block-4">
+                           <h2 class="title">Sponsors</h2>
+                           <div class="content">
+                              <div align="center">
+                                 <table>
+                                    <tbody>
+                                       <tr>
+                                          <td><a href="http://ioos.noaa.gov/"><img width="150" height="59" alt="IOOS Logo" title="Integrated Ocean Observing System" src="http://caricoos.org/drupal/sites/default/files/ioos_logo.jpg" /></a></td>
+                                          <td><a href="http://www.noaa.gov/"><img alt="NOAA Logo" title="National Oceanic and Atmospheric Administration" src="http://caricoos.org/drupal/sites/default/files/noaa_logo.png" /></a></td>
+                                          <td><a href="http://www.uprm.edu/"><img width="85" height="85" alt="UPR RUM Logo" title="University of Puerto Rico at Mayag&uuml;ez" src="http://caricoos.org/drupal/sites/default/files/uprm_logo.jpg" /></a></td>
+                                          <td><a href="http://www.uvi.edu"><img alt="University of the Virgin Islands Logo" title="University of the Virgin Islands" src="http://caricoos.org/drupal/sites/default/files/uvi_logo.png" /></a></td>
+                                          <td>&nbsp;</td>
+                                       </tr>
                                     </tbody>
-                                </table>
-                                
-                                <div style="margin: 5px;" class="btn-group pull-left">
-                                    <button type="button" class="btn btn-default dropdown-toggle" 
-                                    data-toggle="dropdown" aria-expanded="false">
-                                        Per Page <span class="caret"></span>
-                                    </button>
-
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li ng-click="changeNumberOfPages(10)" ><a href="">10</a></li>
-                                        <li ng-click="changeNumberOfPages(20)"><a href="">20</a></li>
-                                        <li ng-click="changeNumberOfPages(30)"><a href="">30</a></li>
-                                        <li ng-click="changeNumberOfPages(40)"><a href="">40</a></li>
-                                        <li ng-click="changeNumberOfPages(50)"><a href="">50</a></li>
-                                        <li ng-click="changeNumberOfPages(500)"><a href="">All</a></li>
-                                    </ul>
-                                </div>
-                                
-                                <div style="margin: 5px;" class="pull-left">
-                                    <ul style="margin: 0px;" class="pagination">
-                                        <li>
-                                            <a href="" ng-click="pagination.prevPage()">&laquo;</a>
-                                        </li>
-                                        <li ng-repeat="n in [] | range: pagination.numPages" ng-class="{active: n == pagination.page}">
-                                            <a href="" ng-click="pagination.toPageId(n)">{{n + 1}}</a>
-                                        </li>
-                                        <li>
-                                            <a href="" ng-click="pagination.nextPage()">&raquo;</a>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                        </section>
-                    </aside>
-                </div>
-
-                <div id="sectionB" class="tab-pane fade">
-                    <aside>                  
-                        <section class="content">
-                            <table class="table table-bordered table-hover">
-                                    <thead>
-                                        <tr ng-class="'headerTable'">
-                                            <th>Town &nbsp; <a href=""
-                                                ng-click="orderByField='pueblo'; reverseSort = !reverseSort"><i class="icon-sort"></i></a>
-                                                <input type="text" placeholder="Search" class="pull-right" ng-model="searchItem">
-                                            </th>
-                                            <th>Beach Name  &nbsp; <a href=""
-                                                ng-click="orderByField='name'; reverseSort = !reverseSort"><i class="icon-sort"></i></a></th>
-                                            <th>Beach Bathymetry</th>
-                                            <th>Breaker Prediction</th>
-                                            <th>Breaker Height & Condition &nbsp; <a href=""
-                                                ng-click="orderByField='hazard_level'; reverseSort = !reverseSort"><i class="icon-sort"></i></a></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody 
-                                    ng-repeat="item in beachesTomorrow | startFrom: pagination.page * pagination.perPage | limitTo: pagination.perPage | filter:searchItem | orderBy:orderByField:reverseSort">
-                                        <tr>
-                                            <td>{{item.pueblo}}</th>
-                                            <td>{{item.name}}</th>
-                                            <td><a href="" ng-click="generatePupUP(item['beach_link'], 'bathy')">Click Here</a></th>
-                                            <td><a href="" ng-click="generatePupUP(item['beach_link'], 'bulletin')">Click Here</a></th>
-                                            <td><img ng-src="{{item['hazard_level'] | generateIcon }}" />&nbsp;{{item["hazard_level"] | changeWarning}}</th>
-                                        </tr>
+                                 </table>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="block block-block" id="block-block-6">
+                           <h2 class="title">Supporters </h2>
+                           <div class="content">
+                              <div align="center">
+                                 <table>
+                                    <tbody>
+                                       <tr>
+                                          <td><a href="http://www.clubdeportivodeloeste.com/"><img src="http://caricoos.org/drupal/sites/default/files/clubdeportivo.gif" alt="Club Deportivo del Oeste Logo" title="Club Deportivo del Oeste" /></a></td>
+                                          <td><a href="http://policia.gobierno.pr/"><img width="69" height="83" src="http://caricoos.org/drupal/sites/default/files/prpd_logo.png" alt="Policia de Puerto Rico logo" /></a></td>
+                                          <td><a href="http://drna.gobierno.pr"><img width="85" height="85" src="http://caricoos.org/drupal/sites/default/files/drna_logo.png" title="Departamento de Recursos Naturales y Ambientales de Puerto Rico" alt="DRNA Logo" /></a></td>
+                                          <td><a href="http://www.seagrantpr.org/index.html"><img width="115" height="77" src="http://caricoos.org/drupal/sites/default/files/logo_seagrant_azul.jpg" title="SeaGrant" alt="SeaGrant Program PR Logo" /></a></td>
+                                          <td><a href="http://www.laregatapr.com/"><img src="http://caricoos.org/drupal/sites/default/files/la_regata_logo.png" alt="La Regata Magazine Logo" /></a></td>
+                                          <td><a href="http://www.portoftheamericas.com/"><img width="110" height="109" src="http://caricoos.org/drupal/sites/default/files/Logo_Puerto_Ponce.png" alt="Puerto de Ponce Logo" /></a></td>
+                                          <td><a href="http://www.uscg.mil/sectorsanjuan/"><img width="110" height="109" src="http://caricoos.org/drupal/sites/default/files/logo_uscgsju.png" alt="USCG Sector San Juan Logo" /></a></td>
+                                       </tr>
+                                       <tr>
+                                          <td>&nbsp;</td>
+                                          <td>&nbsp;</td>
+                                          <td>&nbsp;<a href="http://wico-vi.com/"><img width="100" height="94" src="http://www.caricoos.org/drupal/sites/default/files/wicologo.png" alt="WICO" /></a></td>
+                                          <td class="rtecenter">&nbsp;<a href="http://gyre.umeoce.maine.edu/"><img alt="University of Maine" src="http://www.caricoos.org/drupal/sites/default/files/maine.png" /></a></td>
+                                          <td>&nbsp;<a target="_blank" href="http://www.weatherflow.com"><img width="150" height="38" src="http://www.caricoos.org/drupal/sites/default/files/WF.png" alt="" /></a></td>
+                                          <td>
+                                             &nbsp;
+                                             <p><a href="http://www.weather.gov" target="_blank"><img width="100" height="100" src="  http://www.caricoos.org/drupal/sites/default/files/nwslogo.png" alt="NWS" /></a></p>
+                                          </td>
+                                          <td>&nbsp;<img src="http://caricoos.org/drupal/sites/default/files/cg_aux.gif" alt="" /></td>
+                                       </tr>
                                     </tbody>
-                                </table>
-                                
-                                <div style="margin: 5px;" class="btn-group pull-left">
-                                    <button type="button" class="btn btn-default dropdown-toggle" 
-                                    data-toggle="dropdown" aria-expanded="false">
-                                        Per Page <span class="caret"></span>
-                                    </button>
-
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li ng-click="changeNumberOfPages(10)" ><a href="">10</a></li>
-                                        <li ng-click="changeNumberOfPages(20)"><a href="">20</a></li>
-                                        <li ng-click="changeNumberOfPages(30)"><a href="">30</a></li>
-                                        <li ng-click="changeNumberOfPages(40)"><a href="">40</a></li>
-                                        <li ng-click="changeNumberOfPages(50)"><a href="">50</a></li>
-                                        <li ng-click="changeNumberOfPages(500)"><a href="">All</a></li>
-                                    </ul>
-                                </div>
-                                
-                                <div style="margin: 5px;" class="pull-left">
-                                    <ul style="margin: 0px;" class="pagination">
-                                        <li>
-                                            <a href="" ng-click="pagination.prevPage()">&laquo;</a>
-                                        </li>
-                                        <li ng-repeat="n in [] | range: pagination.numPages" ng-class="{active: n == pagination.page}">
-                                            <a href="" ng-click="pagination.toPageId(n)">{{n + 1}}</a>
-                                        </li>
-                                        <li>
-                                            <a href="" ng-click="pagination.nextPage()">&raquo;</a>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                        </section>
-                    </aside>
-                </div>
+                                 </table>
+                              </div>
+                              <p>&nbsp;</p>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <!-- /inner-content -->
+               </div>
+               <!-- /squeeze-content -->
             </div>
-        </div>
-
-
-        <div id="myModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 id="popUpTitle" class="modal-title">Modal title </h4>
-              </div>
-              <div class="modal-body">
-                <label class="pull-left">[<a id="linkToPicture" href="" target="_blank">Expand</a>]</label>
-                <img  height="100%" width="100%" id="pupUpImg" src="" />
-              </div>
+            <!-- /squeeze -->
+         </div>
+         <!-- /main -->
+      </div>
+      <!-- /middle-container -->
+      <div style="clear:both"></div>
+      <div id="footer">
+         <div id="footer-region">
+            <div class="block block-block" id="block-block-19">
+               <div class="content">
+                  <p class="rtecenter">Regional Coastal Observing Systems: <a title="Alaska Ocean Observing System" target="_blank" href="http://www.aoos.org/">Alaska</a> &bull;  <a title="Caribbean Coastal Ocean Observing System" href="http://cara.uprm.edu/">Caribbean</a> &bull;  <a title="Central and Northern California Ocean Observing" target="_blank" href="http://www.cencoos.org/">Central and Northern California</a> &bull;  <a title="Great Lakes Observing System" href="http://glos.us/">Great Lakes</a> &bull;  <a title="Gulf of Mexico Coastal Ocean Observing System" target="_blank" href="http://gcoos.org/">Gulf of Mexico</a> &bull;  <a title="Pacific Islands Ocean Observing System" target="_blank" href="http://www.pacioos.org/">Pacific Islands</a> &bull;  <a title="Mid-Atlantic Regional Association Coastal Ocean Observing System" target="_blank" href="http://maracoos.org/">Mid-Atlantic</a> &bull;  <a title="Northeastern Regional Association of Coastal Ocean Observing Systems" target="_blank" href="http://www.neracoos.org/">Northeast-Atlantic</a> &bull;  <a title="Pacific Northwest Regional Ocean Observing System" target="_blank" href="http://www.nanoos.org/">Pacific Northwest</a> &bull;  <a title="Southern California Coastal Ocean Observing System" target="_blank" href="http://www.sccoos.org/">Southern California</a> &bull;  <a title="Southeast Coastal Ocean Observing Regional Association" target="_blank" href="http://secoora.org/">Southeast-Atlantic</a> &bull;  <a title="National Federation of Regional Associations for Coastal and Ocean Observing" target="_blank" href="http://www.usnfra.org/">National Federation of Regional Associations for Coastal and Ocean Observing</a><br />
+                     National Observing System Partners: <a title="Alliance for Coastal Technologies ACT" target="_blank" href="http://www.act-us.info/">Alliance for Coastal Technologies (ACT)</a> &bull; <a title="Southeastern Universities Research Association SURA" target="_blank" href="http://www.sura.org/home/">Southeastern Universities Research Association (SURA)</a>
+                  </p>
+                  <p class="rtecenter"><a href="http://ioos.noaa.gov/welcome.html" target="_blank"><strong>IOOS</strong></a><br />
+                     <a title="Integrated Ocean Observing System IOOS" target="_blank" href="http://ioos.noaa.gov/"><strong><font color="#ffffff">Integrated Ocean Observing System IOOS</font></strong></a>
+                  </p>
+               </div>
             </div>
-          </div>
-        </div>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyB2dhC19xC5PHj2E22R_w9--1QrF557JEs&sensor=false"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-    <script src="simplePagination.js"></script> <!-- Add this module -->
-    <script type="text/javascript">
-
-        (function() {
-            var app = angular.module('beachHazardApp', ['simplePagination']);
-
-            app.controller('beachHazardController', ['$scope', '$http', 'Pagination', function($scope, $http, Pagination){
-            
-                $scope.pagination = Pagination.getNew(); //Pagination module init
-                $scope.beaches = []; //Today Data
-                $scope.beachesTomorrow = []; //Tomorrow Data
-                $scope.today = new Date(); //Today date
-                $scope.tomorrow = new Date($scope.today.getTime() + 24 * 60 * 60 * 1000); //Tomorrow date
-
-                $scope.orderByField = 'hazard_level'; //Default sorting
-                $scope.reverseSort = false; //Reverse sorting
-
-                //Fetch data from today csv
-                $http.get('read.php?csv=today.csv').
-                    success(function(data, status, headers, config) {
-                        $scope.beaches = data; //get JSON object
-                        $scope.pagination = Pagination.getNew(15); //Generate pagination in table
-                        $scope.pagination.numPages = Math.ceil($scope.beaches.length/$scope.pagination.perPage); //Generate number of pages
-                        $scope.plotMap("today");
-                        $scope.toggleMarkers("today");
-                        $("#dateOnMapToday").show();
-
-                    }).
-                    error(function(data, status, headers, config) {
-                        alert("Error loading the data.")
-                });
-
-                //Fetch data from tomorrow csv
-                $http.get('read.php?csv=tomorow.csv').
-                    success(function(data, status, headers, config) {
-                        $scope.beachesTomorrow = data; 
-                        $scope.pagination = Pagination.getNew(15);
-                        $scope.pagination.numPages = Math.ceil($scope.beachesTomorrow.length/$scope.pagination.perPage);
-                        $scope.plotMap("tomorrow");
-                        $scope.toggleMarkers("today");
-                        $("#dateOnMapTomorrow").hide();
-
-                    }).
-                    error(function(data, status, headers, config) {
-                        alert("Error loading the data.")
-                });
-
-                $scope.markers = [];
-                $scope.markersTomorrow = [];
-
-                var mapOptions = {
-                    zoom: 9,
-                    center: new google.maps.LatLng(18.18, -66.0),
-                    mapTypeId: google.maps.MapTypeId.SATELLITE
-                };
-                var infoWindow = new google.maps.InfoWindow();
-
-                $scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
-                $scope.map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(document.getElementById('datesContainer'));
-
-                var createMarker = function (info){
-                    var icon = (info.hazard_level == "extreme") ? "x" :
-                                (info.hazard_level == "high") ? "h" :
-                                (info.hazard_level == "medium") ? "m" : "l";
-
-                    var marker = new google.maps.Marker({
-                        map: $scope.map,
-                        position: new google.maps.LatLng(info.latitude, info.longitude),
-                        icon: "http://www.caricoos.org/images/" + icon + ".png", 
-                        title: info.name + ", " + info.pueblo
-                    });
-                    marker.content = '<a href="' + info.beach_link + '" target="_blank">Breaker Height Bulletin</a>';
-                    
-                    google.maps.event.addListener(marker, 'click', function(){
-                        infoWindow.setContent('<h2>' + marker.title + '</h2>' + marker.content);
-                        $scope.map .setCenter(marker.getPosition());
-                        $scope.map .setZoom(13);
-                        infoWindow.open($scope.map, marker);
-                    });
-
-                    return marker;
-                }  
-
-                $scope.plotMap = function(date) {
-                    if(date == "today") {
-                        for (i = 0; i < $scope.beaches.length; i++){
-                            $scope.markers.push(createMarker($scope.beaches[i]));
-                        }
-                    } else {
-                        for (i = 0; i < $scope.beachesTomorrow.length; i++){
-                            $scope.markersTomorrow.push(createMarker($scope.beachesTomorrow[i]));
-                        }
-                    }
-                }
-
-                $scope.toggleMarkers = function(date) {
-                    if(date == "today") {
-                        for (i = 0; i < $scope.markers.length; i++){
-                            $scope.markers[i].setVisible(true);
-                        }
-                        for (i = 0; i < $scope.markersTomorrow.length; i++){
-                            $scope.markersTomorrow[i].setVisible(false);
-                        }
-                    } else {
-                        for (i = 0; i < $scope.markers.length; i++){
-                            $scope.markers[i].setVisible(false);
-                        }
-                        for (i = 0; i < $scope.markersTomorrow.length; i++){
-                            $scope.markersTomorrow[i].setVisible(true);
-                        }
-                    }
-                }
-
-                $scope.changeTab = function(tab) {
-                    if(tab == "today") {
-                        $scope.toggleMarkers('today');
-                        $("#dateOnMapTomorrow").hide();
-                        $("#dateOnMapToday").show();
-                    } else {
-                        $scope.toggleMarkers('tomorrow');
-                        $("#dateOnMapTomorrow").show();
-                        $("#dateOnMapToday").hide();
-                    }
-                }
-
-                $scope.openInfoWindow = function(e, selectedMarker){
-                    e.preventDefault();
-                    google.maps.event.trigger(selectedMarker, 'click');
-                }
-
-                $scope.changeNumberOfPages = function(num){
-                   $scope.pagination = Pagination.getNew(num);
-                    $scope.pagination.numPages = Math.ceil($scope.beaches.length/$scope.pagination.perPage);
-                }
-
-                $scope.generatePupUP = function(link, type) {
-                    var newLink = link;
-                    document.getElementById("pupUpImg").src = newLink;
-                    document.getElementById("popUpTitle").innerHTML = "Breaker Prediction";
-                    document.getElementById("linkToPicture").href = newLink;
-                    if(type == 'bathy') {
-                        newLink = newLink.replace("bulletin", "bathy");
-                        document.getElementById("pupUpImg").src = newLink;
-                        document.getElementById("popUpTitle").innerHTML = "Beach Bathymetry";
-                        document.getElementById("linkToPicture").href = newLink;
-                    } 
-                    $('#myModal').modal('toggle')
-                }
-                
-            }]);
-            
-            app.filter('changeWarning', function() {
-              return function (text) {
-                    if(text == 'medium') {
-                        return "LOW to MODERATE";
-                    } else if(text == 'high') {
-                        return "MODERATE to HIGH";
-                    } else if(text == 'extreme') {
-                        return "HIGH to VERY LARGE"
-                    } else {
-                        return "NONE to LOW";
-                    }
-                };
-            });
-
-            app.filter('generateIcon', function() {
-              return function (text) {
-                    if(text == 'medium') {
-                        return "http://www.caricoos.org/images/m.png";
-                    } else if(text == 'high') {
-                        return "http://www.caricoos.org/images/h.png";
-                    } else if(text == 'extreme') {
-                        return "http://www.caricoos.org/images/x.png";
-                    } else {
-                        return "http://www.caricoos.org/images/l.png";
-                    }
-                };
-            });
-
-        })();
-
-    </script>
-    
-    </body>
+         </div>
+         <div id="footer-message"></div>
+         <br />
+      </div>
+      <!-- /footer -->
+      <script type="text/javascript">
+         var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+         document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+      </script>
+      <script type="text/javascript">
+         var pageTracker = _gat._getTracker("UA-5023081-2");
+         pageTracker._trackPageview();
+      </script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.min.js"></script>
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+      <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyB2dhC19xC5PHj2E22R_w9--1QrF557JEs&sensor=false"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+      <script src="simplePagination.js"></script> <!-- Add this module -->
+      <script type="text/javascript">
+         (function() {
+             var app = angular.module('beachHazardApp', ['simplePagination']);
+         
+             app.controller('beachHazardController', ['$scope', '$http', 'Pagination', function($scope, $http, Pagination){
+             
+                 $scope.pagination = Pagination.getNew(); //Pagination module init
+                 $scope.beaches = []; //Today Data
+                 $scope.beachesTomorrow = []; //Tomorrow Data
+                 $scope.today = new Date(); //Today date
+                 $scope.tomorrow = new Date($scope.today.getTime() + 24 * 60 * 60 * 1000); //Tomorrow date
+         
+                 $scope.orderByField = 'hazard_level'; //Default sorting
+                 $scope.reverseSort = false; //Reverse sorting
+         
+                 //Fetch data from today csv
+                 $http.get('read.php?csv=today.csv').
+                     success(function(data, status, headers, config) {
+                         $scope.beaches = data; //get JSON object
+                         $scope.pagination = Pagination.getNew(15); //Generate pagination in table
+                         $scope.pagination.numPages = Math.ceil($scope.beaches.length/$scope.pagination.perPage); //Generate number of pages
+                         $scope.plotMap("today");
+                         $scope.toggleMarkers("today");
+                         $("#dateOnMapToday").show();
+         
+                     }).
+                     error(function(data, status, headers, config) {
+                         alert("Error loading the data.")
+                 });
+         
+                 //Fetch data from tomorrow csv
+                 $http.get('read.php?csv=tomorow.csv').
+                     success(function(data, status, headers, config) {
+                         $scope.beachesTomorrow = data; 
+                         $scope.pagination = Pagination.getNew(15);
+                         $scope.pagination.numPages = Math.ceil($scope.beachesTomorrow.length/$scope.pagination.perPage);
+                         $scope.plotMap("tomorrow");
+                         $scope.toggleMarkers("today");
+                         $("#dateOnMapTomorrow").hide();
+         
+                     }).
+                     error(function(data, status, headers, config) {
+                         alert("Error loading the data.")
+                 });
+         
+                 $scope.markers = [];
+                 $scope.markersTomorrow = [];
+         
+                 var mapOptions = {
+                     zoom: 9,
+                     center: new google.maps.LatLng(18.18, -66.0),
+                     mapTypeId: google.maps.MapTypeId.SATELLITE
+                 };
+                 var infoWindow = new google.maps.InfoWindow();
+         
+                 $scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
+                 $scope.map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(document.getElementById('datesContainer'));
+         
+                 var createMarker = function (info){
+                     var icon = (info.hazard_level == "extreme") ? "x" :
+                                 (info.hazard_level == "high") ? "h" :
+                                 (info.hazard_level == "medium") ? "m" : "l";
+         
+                     var marker = new google.maps.Marker({
+                         map: $scope.map,
+                         position: new google.maps.LatLng(info.latitude, info.longitude),
+                         icon: "http://www.caricoos.org/images/" + icon + ".png", 
+                         title: info.name + ", " + info.pueblo
+                     });
+                     marker.content = '<a href="' + info.beach_link + '" target="_blank">Breaker Height Bulletin</a>';
+                     
+                     google.maps.event.addListener(marker, 'click', function(){
+                         infoWindow.setContent('<h2>' + marker.title + '</h2>' + marker.content);
+                         $scope.map .setCenter(marker.getPosition());
+                         $scope.map .setZoom(13);
+                         infoWindow.open($scope.map, marker);
+                     });
+         
+                     return marker;
+                 }  
+         
+                 $scope.plotMap = function(date) {
+                     if(date == "today") {
+                         for (i = 0; i < $scope.beaches.length; i++){
+                             $scope.markers.push(createMarker($scope.beaches[i]));
+                         }
+                     } else {
+                         for (i = 0; i < $scope.beachesTomorrow.length; i++){
+                             $scope.markersTomorrow.push(createMarker($scope.beachesTomorrow[i]));
+                         }
+                     }
+                 }
+         
+                 $scope.toggleMarkers = function(date) {
+                     if(date == "today") {
+                         for (i = 0; i < $scope.markers.length; i++){
+                             $scope.markers[i].setVisible(true);
+                         }
+                         for (i = 0; i < $scope.markersTomorrow.length; i++){
+                             $scope.markersTomorrow[i].setVisible(false);
+                         }
+                     } else {
+                         for (i = 0; i < $scope.markers.length; i++){
+                             $scope.markers[i].setVisible(false);
+                         }
+                         for (i = 0; i < $scope.markersTomorrow.length; i++){
+                             $scope.markersTomorrow[i].setVisible(true);
+                         }
+                     }
+                 }
+         
+                 $scope.changeTab = function(tab) {
+                     if(tab == "today") {
+                         $scope.toggleMarkers('today');
+                         $("#dateOnMapTomorrow").hide();
+                         $("#dateOnMapToday").show();
+                     } else {
+                         $scope.toggleMarkers('tomorrow');
+                         $("#dateOnMapTomorrow").show();
+                         $("#dateOnMapToday").hide();
+                     }
+                 }
+         
+                 $scope.openInfoWindow = function(e, selectedMarker){
+                     e.preventDefault();
+                     google.maps.event.trigger(selectedMarker, 'click');
+                 }
+         
+                 $scope.changeNumberOfPages = function(num){
+                    $scope.pagination = Pagination.getNew(num);
+                     $scope.pagination.numPages = Math.ceil($scope.beaches.length/$scope.pagination.perPage);
+                 }
+         
+                 $scope.generatePupUP = function(link, type) {
+                     var newLink = link;
+                     document.getElementById("pupUpImg").src = newLink;
+                     document.getElementById("popUpTitle").innerHTML = "Breaker Prediction";
+                     document.getElementById("linkToPicture").href = newLink;
+                     if(type == 'bathy') {
+                         newLink = newLink.replace("bulletin", "bathy");
+                         document.getElementById("pupUpImg").src = newLink;
+                         document.getElementById("popUpTitle").innerHTML = "Beach Bathymetry";
+                         document.getElementById("linkToPicture").href = newLink;
+                     } 
+                     $('#myModal').modal('toggle')
+                 }
+                 
+             }]);
+             
+             app.filter('changeWarning', function() {
+               return function (text) {
+                     if(text == 'medium') {
+                         return "LOW to MODERATE";
+                     } else if(text == 'high') {
+                         return "MODERATE to HIGH";
+                     } else if(text == 'extreme') {
+                         return "HIGH to VERY LARGE"
+                     } else {
+                         return "NONE to LOW";
+                     }
+                 };
+             });
+         
+             app.filter('generateIcon', function() {
+               return function (text) {
+                     if(text == 'medium') {
+                         return "http://www.caricoos.org/images/m.png";
+                     } else if(text == 'high') {
+                         return "http://www.caricoos.org/images/h.png";
+                     } else if(text == 'extreme') {
+                         return "http://www.caricoos.org/images/x.png";
+                     } else {
+                         return "http://www.caricoos.org/images/l.png";
+                     }
+                 };
+             });
+         
+         })();
+         
+      </script>
+   </body>
 </html>
