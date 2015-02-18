@@ -22,7 +22,7 @@
       <![endif]-->
    </head>
    <body ng-controller="beachHazardController as beachHazard" 
-    style=" background-image: url('blue.png');" >
+    style=" background:#002E68" >
       <div id="page">
       <div id="header" class="clear-block">
          <div id="logo-title">
@@ -310,17 +310,21 @@
                                     <section class="content">
                                        <table class="table table-bordered table-hover">
                                           <thead>
-                                             <tr ng-class="'headerTable'">
+                                             <tr ng-class="'headerTable'" style="background-color:#002E68; color:#fff;">
                                                 <th>Town &nbsp; <a href=""
-                                                   ng-click="orderByField='pueblo'; reverseSort = !reverseSort"><i class="icon-sort"></i></a>
-                                                   <input type="text" placeholder="Search" class="pull-right" ng-model="searchItem">
+                                                   ng-click="orderByField='pueblo'; reverseSort = !reverseSort">
+                                                   <i style="color:#C0C0C0;" class="icon-sort"></i></a>
+                                                   <input style="color:#000;" id="searchBar" ng-change="searchGlitch()"
+                                                   type="text" placeholder="Search" class="pull-right" ng-model="searchItem">
                                                 </th>
                                                 <th>Beach Name  &nbsp; <a href=""
-                                                   ng-click="orderByField='name'; reverseSort = !reverseSort"><i class="icon-sort"></i></a></th>
+                                                   ng-click="orderByField='name'; reverseSort = !reverseSort">
+                                                   <i style="color:#C0C0C0;" class="icon-sort"></i></a></th>
                                                 <th>Beach Bathymetry</th>
                                                 <th>Breaker Prediction</th>
                                                 <th>Breaker Height & Condition &nbsp; <a href=""
-                                                   ng-click="orderByField='hazard_level'; reverseSort = !reverseSort"><i class="icon-sort"></i></a></th>
+                                                   ng-click="orderByField='hazard_level'; reverseSort = !reverseSort">
+                                                   <i style="color:#C0C0C0;" class="icon-sort"></i></a></th>
                                              </tr>
                                           </thead>
                                           <tbody 
@@ -369,17 +373,21 @@
                                     <section class="content">
                                        <table class="table table-bordered table-hover">
                                           <thead>
-                                             <tr ng-class="'headerTable'">
+                                             <tr ng-class="'headerTable'" style="background-color:#002E68; color:#fff;">
                                                 <th>Town &nbsp; <a href=""
-                                                   ng-click="orderByField='pueblo'; reverseSort = !reverseSort"><i class="icon-sort"></i></a>
-                                                   <input type="text" placeholder="Search" class="pull-right" ng-model="searchItem">
+                                                   ng-click="orderByField='pueblo'; reverseSort = !reverseSort">
+                                                   <i style="color:#C0C0C0;" class="icon-sort"></i></a>
+                                                   <input style="color:#000;" id="searchBar" ng-change="searchGlitch()"
+                                                   type="text" placeholder="Search" class="pull-right" ng-model="searchItem">
                                                 </th>
                                                 <th>Beach Name  &nbsp; <a href=""
-                                                   ng-click="orderByField='name'; reverseSort = !reverseSort"><i class="icon-sort"></i></a></th>
+                                                   ng-click="orderByField='name'; reverseSort = !reverseSort">
+                                                   <i style="color:#C0C0C0;" class="icon-sort"></i></a></th>
                                                 <th>Beach Bathymetry</th>
                                                 <th>Breaker Prediction</th>
                                                 <th>Breaker Height & Condition &nbsp; <a href=""
-                                                   ng-click="orderByField='hazard_level'; reverseSort = !reverseSort"><i class="icon-sort"></i></a></th>
+                                                   ng-click="orderByField='hazard_level'; reverseSort = !reverseSort">
+                                                   <i style="color:#C0C0C0;" class="icon-sort"></i></a></th>
                                              </tr>
                                           </thead>
                                           <tbody 
@@ -662,6 +670,15 @@
                          $scope.toggleMarkers('tomorrow');
                          $("#dateOnMapTomorrow").show();
                          $("#dateOnMapToday").hide();
+                     }
+                 }
+
+                 $scope.searchGlitch = function() {
+                     var characters = document.getElementById("searchBar").value;
+                     if(characters.length > 0) {
+                        $scope.changeNumberOfPages(500);
+                     } else {
+                        $scope.changeNumberOfPages(15);
                      }
                  }
          
